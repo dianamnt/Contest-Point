@@ -15,7 +15,7 @@
         <mapping class="com.contestpoint.model.Question"></mapping>
         <mapping class="com.contestpoint.model.Answer"></mapping>
         <mapping class="com.contestpoint.model.RegularUser"></mapping>
-        <mapping class="com.contestpoint.model.Like"></mapping>
+        <mapping class="com.contestpoint.model.UserLike"></mapping>
         <mapping class="com.contestpoint.model.ParticipationContract"></mapping>
         <mapping class="com.contestpoint.model.Location"></mapping>
         <mapping class="com.contestpoint.model.Tag"></mapping>

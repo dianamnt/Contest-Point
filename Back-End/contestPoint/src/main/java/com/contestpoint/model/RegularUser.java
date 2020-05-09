@@ -34,7 +34,7 @@ public class RegularUser {
     private String profilePicture;
 
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "regularUser")
-    List<Like> likes;
+    List<UserLike> userLikes;
 
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "regularUser")
     List<ParticipationContract> contracts;

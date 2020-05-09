@@ -47,7 +47,7 @@ public class Contest {
     private VerifiedUser verifiedUser;
 
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contest")
-    List<Like> likes;
+    List<UserLike> userLikes;
 
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contest")
     List<ParticipationContract> contracts;

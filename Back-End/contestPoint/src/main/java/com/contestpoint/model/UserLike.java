@@ -11,12 +11,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Like")
-public class Like {
+@Table(name = "UserLike")
+public class UserLike {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="like_id")
-    private Long likeId;
+    @Column(name="userlike_id")
+    private Long userlikeId;
 
     @ManyToOne
     @JoinColumn(name="ru_id", nullable=false)
