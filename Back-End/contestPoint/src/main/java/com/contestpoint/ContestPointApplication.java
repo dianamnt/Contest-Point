@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+//@EnableJpaRepositories("com.chk.ubbprotool.ubbprotool.Repository")
+@EntityScan("com.chk.ubbprotool.ubbprotool.Model.*")
 public class ContestPointApplication {
 
 	public static void main(String[] args) {

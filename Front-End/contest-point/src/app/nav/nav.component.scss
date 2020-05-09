@@ -1,0 +1,18 @@
+.company__logo {
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
+  margin-left: 3%;
+}
+
+.navbar {
+  width: 85%;
+  margin-left: 7.5%;
+  margin-top: 3%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+}
+
+.fill__space {
+  flex: 1 1 auto;
+}

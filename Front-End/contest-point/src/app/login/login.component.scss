@@ -1,0 +1,142 @@
+.background {
+  background-image: url(../../assets/images/wallpaper-welcome.jpg);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.shade__background {
+  background: rgba(0, 0, 0, 0.2);
+  height: inherit;
+  width: inherit;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header__welcome {
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 3%;
+  background: rgba(255, 255, 255, 0);
+}
+
+.company__logo {
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 1%;
+  border-radius: 50%;
+}
+
+.fill__space {
+  flex: 1 1 auto;
+}
+
+.login__button {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid white;
+}
+
+.signup__button {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 50px;
+  background-color: white;
+  color: #e75480;
+  margin-left: 15%;
+}
+
+.welcome__content {
+  width: 70%;
+  margin-left: 15%;
+  background-color: unset;
+  border: unset;
+  box-shadow: unset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.welcome__title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 100px;
+  font-weight: lighter;
+  color: white;
+  width: inherit;
+  text-align: center;
+  margin-top: 5%;
+}
+
+.welcome__subtitle {
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  color: white;
+  width: inherit;
+  text-align: center;
+  margin-top: 1%;
+}
+
+.welcome__text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  color: white;
+  width: inherit;
+  text-align: center;
+  margin-top: 3%;
+}
+
+.tryitnow__button {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid white;
+  margin-top: 2%;
+}
+
+.footer__welcome {
+  position: fixed;
+  bottom: 0;
+}
+
+.footer__icon {
+  height: 30px;
+  margin-right: 1%;
+}
+
+.footer__text {
+  font-size: 15px;
+  color: #C0C0C0;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 2%;
+}
+
+.margin__right {
+  margin-right: 1%;
+}
+
+.right__allign {
+  margin-left: auto;
+}
+
+.margin__left {
+  margin-left: 2%;
+}
