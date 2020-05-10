@@ -1,13 +1,9 @@
 package com.contestpoint.mapper;
 
 import com.contestpoint.dto.UserDTO;
-import com.contestpoint.dto.UserLikeDTO;
 import com.contestpoint.model.User;
-import com.contestpoint.model.UserLike;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {

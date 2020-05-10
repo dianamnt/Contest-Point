@@ -7,17 +7,17 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    void createStudent(UserDTO user) throws Exception;
+    void createUser(UserDTO user) throws Exception;
 
-    void deleteStudent(Long userId);
+    void deleteUser(Long userId);
 
-    void updateStudent(UserDTO user) throws Exception;
+    void updateUser(UserDTO user) throws Exception;
 
-    List<UserDTO> findAllStudents();
+    List<UserDTO> findAllUsers();
 
     UserDTO findById(Long id);
 
-    UserDTO findStudentByEmailAndPassword(String email, String password);
+    UserDTO findByEmailAndPassword(String email, String password);
 
-    boolean checkIfStudentDoesNotExists(String email) throws Exception;
+    boolean checkIfUserDoesNotExists(String email) throws Exception;
 }
