@@ -3,7 +3,6 @@ package com.contestpoint.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -19,8 +18,8 @@ public class UserLike {
     private Long userlikeId;
 
     @ManyToOne
-    @JoinColumn(name="ru_id", nullable=false)
-    private RegularUser regularUser;
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name="contest_id", nullable=false)

@@ -42,10 +42,6 @@ public class Contest {
     @Column(name="cover_picture")
     private String coverPicture;
 
-    @ManyToOne
-    @JoinColumn(name="vu_id", nullable=false)
-    private VerifiedUser verifiedUser;
-
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contest")
     List<UserLike> userLikes;
 
@@ -58,7 +54,7 @@ public class Contest {
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contest")
     List<LocationContest> locationContests;
 
-    @OneToOne
-    @JoinColumn(name="quiz_id", nullable=false)
-    private Quiz quiz;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 }

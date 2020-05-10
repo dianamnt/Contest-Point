@@ -10,11 +10,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Data
 @Entity
-@Table(name = "RegularUser")
-public class RegularUser {
+@Table(name = "User")
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="ru_id")
+    @Column(name="user_id")
     private Long ruId;
 
     @Column(name="first_name") @NonNull
@@ -29,13 +29,19 @@ public class RegularUser {
     @Column(name="password") @NonNull
     private String password;
 
+    @Column(name="institution_name")
+    private String institutionName;
+
     @Column(name="profile_picture")
 
     private String profilePicture;
 
-    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "regularUser")
+    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "user")
     List<UserLike> userLikes;
 
-    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "regularUser")
+    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "user")
     List<ParticipationContract> contracts;
+
+    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "user")
+    List<Contest> contests;
 }
