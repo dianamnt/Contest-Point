@@ -19,7 +19,7 @@ public class Contest {
     private Long contestId;
 
     @Column(name="contest_name") @NonNull
-    private String contest_name;
+    private String contestName;
 
     @Column(name="details") @NonNull
     private String details;

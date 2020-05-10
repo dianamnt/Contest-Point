@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-//@EnableJpaRepositories("com.chk.ubbprotool.ubbprotool.Repository")
-@EntityScan("com.chk.ubbprotool.ubbprotool.Model.*")
+@EnableJpaRepositories("com.contestpoint.repository")
+@EntityScan("com.contestpoint.model.*")
 public class ContestPointApplication {
 
 	public static void main(String[] args) {
