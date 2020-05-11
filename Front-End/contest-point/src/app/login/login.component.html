@@ -1,28 +1,36 @@
-<div class="background">
-  <div class="shade__background">
-    <mat-toolbar class="header__welcome">
-      <span class="company__logo">CP</span>
-      <span class="fill__space"></span>
-      <span class="right__alligned__items">
-        <button mat-button class="login__button">LOG IN</button>
-        <button mat-button class="signup__button">SIGN UP</button>
-      </span>
-    </mat-toolbar>
-    <mat-card class="welcome__content">
-      <div class="welcome__title">CONTEST POINT</div>
-      <div class="welcome__subtitle">GET YOUR GEARS ROLLING</div>
-      <div class="welcome__text">Are you a creator or a contester? Begin your journey of discovery and adventure now by
-        creating an account and joining our international community. Show the world what your aptitudes are or create
-        the perfectly organised contest type event.</div>
-      <button mat-button class="tryitnow__button">TRY IT NOW</button>
-    </mat-card>
-    <mat-toolbar class="footer__welcome">
-      <span class="footer__text margin__left">Contest Point &reg;</span>
-      <a href="google.com" class="right__allign margin__right"><img
-          src="../../assets/images/iconfinder_facebook_six_107120.png" alt="facebook" class="footer__icon"></a>
-      <a href="google.com" class="margin__right"><img src="../../assets/images/iconfinder_twitter_six_107069.png"
-          alt="twitter" class="footer__icon"></a>
-      <span class="footer__text">contact@contestpoint.com</span>
-    </mat-toolbar>
+<mat-card class="login__card">
+  <div class="card__picture__wrapper">
+    <button mat-button (click)="cancel()" class="cancel__button"><span class="material-icons">
+        arrow_back
+      </span></button>
+    <img src="../../assets/images/cardImg1.jpg" alt="LoginCardImage" class="card__picture">
+    <span class="bottom__text">Create an account</span>
   </div>
-</div>
+  <div class="card__content__wrapper">
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <div class="login__title">Log In</div>
+      <mat-form-field class="email__form">
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" required placeholder="Email"
+        [(ngModel)]="user.email">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="password__form">
+        <mat-label>Password</mat-label>
+        <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+          [type]="hide ? 'password' : 'text'" required placeholder="Password" [(ngModel)]="user.password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <span class="bottom__text">Forgot password?</span>
+      <button class="login__button" [disabled]="!loginForm.valid" type="submit">LOGIN</button>
+    </form>
+  </div>
+</mat-card>

@@ -38,12 +38,22 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { LoginComponent } from './login/login.component';
 import { NavComponent } from './nav/nav.component';
+import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SuccessComponent } from './success/success.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavComponent
+    NavComponent,
+    RegisterComponent,
+    WelcomeComponent,
+    DashboardComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +90,10 @@ import { NavComponent } from './nav/nav.component';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

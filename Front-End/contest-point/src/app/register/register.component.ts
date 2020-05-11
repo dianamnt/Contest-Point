@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
 import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
+import { ok } from 'assert';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -13,12 +14,12 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
-  @Output() cancelLogin = new EventEmitter();
+export class RegisterComponent implements OnInit {
+  @Output() cancelRegister = new EventEmitter();
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -27,8 +28,6 @@ export class LoginComponent implements OnInit {
   passwordFormControl = new FormControl('', [
     Validators.required,
   ]);
-
-  matcher = new LoginErrorStateMatcher();
 
   hide = true;
 
@@ -40,14 +39,14 @@ export class LoginComponent implements OnInit {
   }
 
   cancel() {
-    this.cancelLogin.emit(false);
+    this.cancelRegister.emit(false);
   }
 
-  login() {
-    this.authSerice.login(this.user).subscribe((data: User) => {
+  register() {
+    this.authSerice.register(this.user).subscribe((data:User) => {
       if (data != null) {
-        this.router.navigate(['/dashboard']);
-        console.log(data);
+        this.router.navigate(['/success']);
+        console.log('iei o mers');
       } else {
         console.log('naspa nu o mers scz');
       }

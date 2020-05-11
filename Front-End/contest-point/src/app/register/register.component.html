@@ -1,0 +1,55 @@
+<mat-card class="register__card">
+  <div class="card__content__wrapper">
+    <button mat-button (click)="cancel()" class="cancel__button"><span class="material-icons">
+        arrow_back
+      </span></button>
+    <form #registerForm="ngForm" (ngSubmit)="register()">
+      <div class="register__title">Register</div>
+      <mat-form-field class="email__form">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" required [(ngModel)]="user.firstName" name="firstName">
+      </mat-form-field>
+      <mat-form-field class="email__form">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" required [(ngModel)]="user.lastName" name="lastName">
+      </mat-form-field>
+      <mat-form-field class="email__form">
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" required placeholder="Email" [(ngModel)]="user.email" name="email">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="password__form">
+        <mat-label>Password</mat-label>
+        <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+          [type]="hide ? 'password' : 'text'" required placeholder="Password" [(ngModel)]="user.password" name="password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="password__form">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+          [type]="hide ? 'password' : 'text'" required placeholder="Confirm Password" name="confirmPassword">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Confirming password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="email__form">
+        <mat-label>Institution Name</mat-label>
+        <input matInput placeholder="Institution Name" [(ngModel)]="user.institutionName" name="institutionName">
+      </mat-form-field>
+      <button class="submit__button" [disabled]="!registerForm.valid" type="submit">SUBMIT</button>
+    </form>
+  </div>
+  <div class="card__picture__wrapper">
+    <img src="../../assets/images/cardImg2.jpg" alt="RegisterCardImage" class="card__picture">
+    <span class="bottom__text">Aleready have an account? Log in</span>
+  </div>
+</mat-card>

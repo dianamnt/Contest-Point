@@ -4,12 +4,10 @@ import com.contestpoint.dto.UserDTO;
 import com.contestpoint.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,23 +24,23 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> saveUser(@RequestBody UserDTO userDTO) throws Exception {
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) throws Exception {
         if (userService.checkIfUserDoesNotExists(userDTO.getEmail())) {
             userService.createUser(userDTO);
-            return ResponseEntity.ok("User saved");
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> verifyEmailAndPassword(@RequestBody UserDTO user) throws IOException {
+    public ResponseEntity<?> verifyEmailAndPassword(@RequestBody UserDTO user) {
         UserDTO userDTO = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
 
         if (userDTO == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(userDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }
