@@ -20,6 +20,7 @@ public class RequirementMapper {
         requirementDTO.setOrderNo(requirement.getOrderNo());
         requirementDTO.setContent(requirement.getContent());
         requirementDTO.setIsMandatory(requirement.getIsMandatory());
+        requirementDTO.setReqImage(requirement.getReqImage());
         requirementDTO.setContestId(requirement.getContest().getContestId());
 
         return requirementDTO;
@@ -32,6 +33,7 @@ public class RequirementMapper {
         requirement.setOrderNo(requirementDTO.getOrderNo());
         requirement.setContent(requirementDTO.getContent());
         requirement.setIsMandatory(requirementDTO.getIsMandatory());
+        requirement.setReqImage(requirementDTO.getReqImage());
         Contest c = contestRepository.findById(requirementDTO.getContestId());
         requirement.setContest(c);
 

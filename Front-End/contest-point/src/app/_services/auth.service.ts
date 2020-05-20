@@ -16,7 +16,7 @@ export class AuthService {
     });
     let options = { headers: headers };
     const body = JSON.stringify(user);
-    return this.http.post(baseUrl + "user/login", body, options);
+    return this.http.post(baseUrl + "auth/login", body, options);
   }
 
   register(user: User) {
@@ -25,7 +25,7 @@ export class AuthService {
     });
     let options = { headers: headers };
     const body = JSON.stringify(user);
-    return this.http.post(baseUrl + "user/register", body, options);
+    return this.http.post(baseUrl + "auth/register", body, options);
   }
 
 }

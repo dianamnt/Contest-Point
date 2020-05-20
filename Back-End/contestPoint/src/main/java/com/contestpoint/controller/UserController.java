@@ -23,24 +23,15 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) throws Exception {
-        if (userService.checkIfUserDoesNotExists(userDTO.getEmail())) {
-            userService.createUser(userDTO);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
+    @PostMapping("/deleteUser/{userId}")
+    public ResponseEntity<String> deleteChange(@PathVariable("userId") Long changeId) {
+        userService.deleteUser(changeId);
+        return ResponseEntity.ok("Change deleted");
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> verifyEmailAndPassword(@RequestBody UserDTO user) {
-        UserDTO userDTO = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
-
-        if (userDTO == null){
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    @PostMapping("/updateUser")
+    public ResponseEntity<String> updateChange(@RequestBody UserDTO userDTO) throws Exception {
+        userService.updateUser(userDTO);
+        return ResponseEntity.ok("Change updated");
     }
 }

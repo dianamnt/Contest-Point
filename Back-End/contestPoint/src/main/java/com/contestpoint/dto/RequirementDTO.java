@@ -18,5 +18,6 @@ public class RequirementDTO {
     private Integer orderNo;
     private String content;
     private Integer isMandatory;
+    private Integer reqImage;
     private Long contestId;
 }

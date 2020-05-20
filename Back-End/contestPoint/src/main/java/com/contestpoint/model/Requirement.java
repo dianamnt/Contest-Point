@@ -23,6 +23,9 @@ public class Requirement {
     @Column(name="content")
     private String content;
 
+    @Column(name="req_image")
+    private Integer reqImage;
+
     @Column(name="is_mandatory")
     private Integer isMandatory;
 
