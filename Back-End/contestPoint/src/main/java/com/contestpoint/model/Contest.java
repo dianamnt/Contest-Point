@@ -54,6 +54,9 @@ public class Contest {
     @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contest")
     List<LocationContest> locationContests;
 
+    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contest")
+    List<Requirement> requirements;
+
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;

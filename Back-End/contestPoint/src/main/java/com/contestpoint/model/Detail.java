@@ -9,12 +9,15 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Data
 @Entity
-@Table(name = "Answer")
-public class Answer {
+@Table(name = "Detail")
+public class Detail {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="answer_id")
-    private Long answerId;
+    @Column(name="detail_id")
+    private Long detailId;
+
+    @Column(name="order_no") @NonNull
+    private Integer orderNo;
 
     @Column(name="text_content")
     private String textContent;
@@ -22,13 +25,7 @@ public class Answer {
     @Column(name="image_content")
     private String imageContent;
 
-    @Column(name="is_correct") @NonNull
-    private Integer isCorrect;
-
-    @Column(name="is_chosen") @NonNull
-    private Integer isChosen;
-
     @ManyToOne
-    @JoinColumn(name="question_id", nullable=false)
-    private Question question;
+    @JoinColumn(name="pc_id", nullable=false)
+    private ParticipationContract contract;
 }

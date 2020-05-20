@@ -13,11 +13,10 @@ import java.util.List;
 @Data
 @Component
 @JsonComponent
-public class QuestionDTO {
-    private Long questionId;
-    private String textContent;
-    private String imageContent;
-    private Integer score;
-    private Integer isActive;
-    private Long quizId;
+public class RequirementDTO {
+    private Long requirementId;
+    private Integer orderNo;
+    private String content;
+    private Integer isMandatory;
+    private Long contestId;
 }

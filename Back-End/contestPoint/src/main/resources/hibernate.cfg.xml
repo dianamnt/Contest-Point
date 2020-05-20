@@ -10,9 +10,8 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">parola</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <mapping class="com.contestpoint.model.Quiz"></mapping>
-        <mapping class="com.contestpoint.model.Question"></mapping>
-        <mapping class="com.contestpoint.model.Answer"></mapping>
+        <mapping class="com.contestpoint.model.Requirement"></mapping>
+        <mapping class="com.contestpoint.model.Detail"></mapping>
         <mapping class="com.contestpoint.model.User"></mapping>
         <mapping class="com.contestpoint.model.UserLike"></mapping>
         <mapping class="com.contestpoint.model.ParticipationContract"></mapping>

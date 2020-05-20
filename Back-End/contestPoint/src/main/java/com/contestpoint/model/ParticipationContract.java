@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +25,7 @@ public class ParticipationContract {
     @ManyToOne
     @JoinColumn(name="contest_id", nullable=false)
     private Contest contest;
+
+    @OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "contract")
+    List<Detail> details;
 }

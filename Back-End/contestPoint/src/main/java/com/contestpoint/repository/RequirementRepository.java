@@ -1,6 +1,6 @@
 package com.contestpoint.repository;
 
-import com.contestpoint.model.Question;
+import com.contestpoint.model.Requirement;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,15 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class QuestionRepository {
+public class RequirementRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<Question> findAll() {
+    public List<Requirement> findAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Question> cq = cb.createQuery(Question.class);
-        Root<Question> root = cq.from(Question.class);
+        CriteriaQuery<Requirement> cq = cb.createQuery(Requirement.class);
+        Root<Requirement> root = cq.from(Requirement.class);
         cq.select(root);
         Query query = session.createQuery(cq);
         return query.getResultList();
@@ -30,28 +30,28 @@ public class QuestionRepository {
 
     public void removeData(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Question Question = session.byId(Question.class).load(id);session.delete(Question);
+        Requirement Requirement = session.byId(Requirement.class).load(id);session.delete(Requirement);
         session.flush();
         session.clear();
     }
 
 
-    public void updateData(Question Question) {
+    public void updateData(Requirement Requirement) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(Question);
+        session.update(Requirement);
     }
 
 
-    public void saveData(Question Question) {
+    public void saveData(Requirement Requirement) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(Question);
+        currentSession.save(Requirement);
     }
 
 
-    public Question findById(Long id) {
+    public Requirement findById(Long id) {
         try {
             Session currentSession = sessionFactory.getCurrentSession();
-            return currentSession.get(Question.class, id);
+            return currentSession.get(Requirement.class, id);
 
         }catch (Error e){
             return null;

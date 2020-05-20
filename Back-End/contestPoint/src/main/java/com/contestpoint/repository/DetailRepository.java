@@ -1,6 +1,6 @@
 package com.contestpoint.repository;
 
-import com.contestpoint.model.Answer;
+import com.contestpoint.model.Detail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,15 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class AnswerRepository {
+public class DetailRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<Answer> findAll() {
+    public List<Detail> findAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Answer> cq = cb.createQuery(Answer.class);
-        Root<Answer> root = cq.from(Answer.class);
+        CriteriaQuery<Detail> cq = cb.createQuery(Detail.class);
+        Root<Detail> root = cq.from(Detail.class);
         cq.select(root);
         Query query = session.createQuery(cq);
         return query.getResultList();
@@ -30,28 +30,28 @@ public class AnswerRepository {
 
     public void removeData(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Answer Answer = session.byId(Answer.class).load(id);session.delete(Answer);
+        Detail Detail = session.byId(Detail.class).load(id);session.delete(Detail);
         session.flush();
         session.clear();
     }
 
 
-    public void updateData(Answer Answer) {
+    public void updateData(Detail Detail) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(Answer);
+        session.update(Detail);
     }
 
 
-    public void saveData(Answer Answer) {
+    public void saveData(Detail Detail) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(Answer);
+        currentSession.save(Detail);
     }
 
 
-    public Answer findById(Long id) {
+    public Detail findById(Long id) {
         try {
             Session currentSession = sessionFactory.getCurrentSession();
-            return currentSession.get(Answer.class, id);
+            return currentSession.get(Detail.class, id);
 
         }catch (Error e){
             return null;

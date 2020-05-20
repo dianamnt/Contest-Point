@@ -11,11 +11,10 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @JsonComponent
-public class AnswerDTO {
-    private Long answerId;
+public class DetailDTO {
+    private Long detailId;
+    private Integer orderNo;
     private String textContent;
     private String imageContent;
-    private Integer isCorrect;
-    private Integer isChosen;
-    private Long questionId;
+    private Long pcId;
 }
