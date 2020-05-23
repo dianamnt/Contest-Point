@@ -1,4 +1,4 @@
-package com.contestpoint.helper;
+package com.contestpoint.helper.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

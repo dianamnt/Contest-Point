@@ -1,4 +1,4 @@
-package com.contestpoint.helper;
+package com.contestpoint.helper.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

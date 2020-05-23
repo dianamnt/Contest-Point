@@ -43,6 +43,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    if(this.user.institutionName == null)
+    {
+      this.user.institutionName = "";
+    }
+    this.user.profilePicture = "";
     this.authSerice.register(this.user).subscribe((data:User) => {
       if (data != null) {
         this.router.navigate(['/success']);

@@ -14,5 +14,4 @@ public class ContestPointApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ContestPointApplication.class, args);
 	}
-
 }

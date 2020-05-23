@@ -4,6 +4,8 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
+import { AlertifyService } from '../_services/alertify.service';
+import { JwtResponse } from '../_models/jwtResponse';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
 
-  constructor(public authSerice: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router, private alertifyService: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -44,14 +46,16 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authSerice.login(this.user).subscribe((data: User) => {
-      if (data != null) {
+    this.authService.login(this.user).subscribe(
+      (data: JwtResponse) => {
+        localStorage.setItem('token', "Bearer " + data.token);
+        this.alertifyService.success("Logged in!");
         this.router.navigate(['/dashboard']);
-        console.log(data);
-      } else {
-        console.log('naspa nu o mers scz');
+      },
+      error => {
+        this.alertifyService.error("Logging in unsuccessful!");
       }
-    });
+    );
   }
 
 }

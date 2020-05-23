@@ -19,5 +19,7 @@ public interface UserService {
 
     UserDTO findByEmailAndPassword(String email, String password);
 
+    UserDTO findByEmail(String email);
+
     boolean checkIfUserDoesNotExists(String email) throws Exception;
 }

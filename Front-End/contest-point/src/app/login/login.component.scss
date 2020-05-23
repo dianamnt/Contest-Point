@@ -53,20 +53,10 @@ mat-form-field {
   color: white;
   border: none;
   border-radius: 50px;
-  cursor: pointer;
   align-self: center;
   margin-top: 5%;
   transition: 0.3s ease-out;
-  opacity: 0.9;
   font-weight: bold;
-}
-
-.login__button:focus {
-  outline: 0;
-}
-
-.login__button:hover {
-  opacity: 1;
 }
 
 .cancel__button {
