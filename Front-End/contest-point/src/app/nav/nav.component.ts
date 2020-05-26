@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../_models/user';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  user: User = new User();
+  initials: String = "";
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.user = this.authService.getCurrentUser();
+    this.initials = this.user.firstName[0].toUpperCase() + this.user.lastName[0].toUpperCase();
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/welcome']);
+  }
+
+  goToAddContest() {
+    this.router.navigate(['/add']);
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
 }

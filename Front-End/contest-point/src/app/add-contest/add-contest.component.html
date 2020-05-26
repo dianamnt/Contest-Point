@@ -1,0 +1,82 @@
+<div class="dashboard__container">
+  <app-nav></app-nav>
+  <div class="content__wrapper">
+    <mat-horizontal-stepper class="stepper" labelPosition="bottom" linear #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form class="first__form" [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Contest Details</ng-template>
+          <div class="form__header">Fill in the details about your contest</div>
+          <div class="details">
+            <mat-form-field class="form__field">
+              <mat-label>Name</mat-label>
+              <textarea matInput placeholder="Name" formControlName="name" required></textarea>
+            </mat-form-field>
+            <mat-form-field class="form__field">
+              <mat-label>Description</mat-label>
+              <textarea matInput placeholder="Give a description" formControlName="description" required></textarea>
+            </mat-form-field>
+            <mat-form-field class="form__field">
+              <mat-label>Partners</mat-label>
+              <textarea matInput placeholder="Ex. Partner1, Partner2, ..." formControlName="partners"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form__header">When will your contest take place?</div>
+          <div class="details">
+            <mat-form-field class="form__field">
+              <mat-label>Choose a start date</mat-label>
+              <input matInput [matDatepicker]="pickerStart" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+              <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="form__field">
+              <mat-label>Choose an end date</mat-label>
+              <input matInput [matDatepicker]="pickerEnd" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="form__header">What is the enrollment period?</div>
+          <div class="details">
+            <mat-form-field class="form__field">
+              <mat-label>Enroll starts</mat-label>
+              <input matInput [matDatepicker]="pickerEnStart" formControlName="enrollmentStartDate">
+              <mat-datepicker-toggle matSuffix [for]="pickerEnStart"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="form__field">
+              <mat-label>Enroll ends</mat-label>
+              <input matInput [matDatepicker]="pickerEnEnd" formControlName="enrollmentDueDate">
+              <mat-datepicker-toggle matSuffix [for]="pickerEnEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnEnd></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button mat-button (click)="submit()">bUNA SIUA</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertifyService } from '../_services/alertify.service';
+import { NotificationService } from '../_services/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +7,14 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  centered = false;
+  disabled = false;
+  unbounded = false;
 
-  constructor(private alertifyService: AlertifyService) { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.alertifyService.success("Buna siua coaie");
+    
   }
 
 }

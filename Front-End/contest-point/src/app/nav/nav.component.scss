@@ -1,18 +1,57 @@
 .company__logo {
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+  background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-family: 'Lobster', cursive;
   font-size: 30px;
+  font-weight: bolder;
+  padding: 5px;
+  opacity: 0.7;
+}
+
+.nav__button {
+  background-color: rgba(255, 255, 255, 0.89);
+  opacity: 0.7;
   margin-left: 3%;
+  margin-right: 3%;
+}
+
+.right__side {
+  margin-left: 3%;
+  width: 40%;
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left__side {
+  margin-right: 4%;
+  background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
+  opacity: 0.7;
+}
+
+.material-icons { 
+  color: black;
 }
 
 .navbar {
   width: 85%;
   margin-left: 7.5%;
   margin-top: 3%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.767);
   border-radius: 50px;
 }
 
 .fill__space {
   flex: 1 1 auto;
+}
+
+.menu__item {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
 }

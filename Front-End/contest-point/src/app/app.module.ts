@@ -37,6 +37,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatRippleModule} from '@angular/material/core';
+import {MatNativeDateModule} from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
@@ -45,6 +47,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SuccessComponent } from './success/success.component';
+import { AddContestComponent } from './add-contest/add-contest.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { SuccessComponent } from './success/success.component';
     RegisterComponent,
     WelcomeComponent,
     DashboardComponent,
-    SuccessComponent
+    SuccessComponent,
+    AddContestComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +96,8 @@ import { SuccessComponent } from './success/success.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatRippleModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

@@ -4,9 +4,9 @@ import { ErrorStateMatcher } from '@angular/material';
 import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
-import { ok } from 'assert';
+import { NotificationService } from '../_services/notification.service';
 
-export class LoginErrorStateMatcher implements ErrorStateMatcher {
+export class RegisterErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -33,7 +33,9 @@ export class RegisterComponent implements OnInit {
 
   user: User = new User();
 
-  constructor(public authSerice: AuthService, private router: Router) { }
+  matcher = new RegisterErrorStateMatcher();
+
+  constructor(public authSerice: AuthService, private router: Router, private notificationService: NotificationService) { }
 
   ngOnInit() {
   }
@@ -43,19 +45,21 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if(this.user.institutionName == null)
-    {
+    if (this.user.institutionName == null) {
       this.user.institutionName = "";
     }
     this.user.profilePicture = "";
-    this.authSerice.register(this.user).subscribe((data:User) => {
-      if (data != null) {
-        this.router.navigate(['/success']);
-        console.log('iei o mers');
-      } else {
-        console.log('naspa nu o mers scz');
+    this.authSerice.register(this.user).subscribe(
+      (data: User) => {
+        this.notificationService.success("Registered!")
+        var frm = document.forms['registerForm'];
+        frm.reset();
+        this.cancel();
+      },
+      error => {
+        this.notificationService.error("Registering did not work!");
       }
-    });
+    );
   }
 
 }

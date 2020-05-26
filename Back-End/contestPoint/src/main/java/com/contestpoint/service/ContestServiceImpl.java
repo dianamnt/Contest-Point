@@ -1,8 +1,10 @@
 package com.contestpoint.service;
 
 import com.contestpoint.dto.ContestDTO;
+import com.contestpoint.dto.UserDTO;
 import com.contestpoint.mapper.ContestMapper;
 import com.contestpoint.model.Contest;
+import com.contestpoint.model.User;
 import com.contestpoint.repository.ContestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -62,5 +64,15 @@ public class ContestServiceImpl implements ContestService{
             return null;
         }
         return ContestMapper.toDTO(Contest);
+    }
+
+    @Override
+    @Transactional
+    public ContestDTO findByEverything(String name, Long userId) {
+        Contest contest = ContestRepository.findByEverything(name, userId);
+        if (contest == null) {
+            return null;
+        }
+        return ContestMapper.toDTO(contest);
     }
 }

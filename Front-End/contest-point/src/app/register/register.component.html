@@ -3,7 +3,7 @@
     <button mat-button (click)="cancel()" class="cancel__button"><span class="material-icons">
         arrow_back
       </span></button>
-    <form #registerForm="ngForm" (ngSubmit)="register()">
+    <form #registerForm="ngForm" name="registerForm" (ngSubmit)="register()">
       <div class="register__title">Register</div>
       <mat-form-field class="email__form">
         <mat-label>First Name</mat-label>

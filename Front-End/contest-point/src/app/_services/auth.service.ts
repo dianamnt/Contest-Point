@@ -33,7 +33,12 @@ export class AuthService {
     return this.http.post(baseUrl + 'auth/register', body, options);
   }
 
-  loggedIn() {
+  isloggedIn() {
+    this.token = localStorage.getItem('token').toString();
+    if(this.token == null)
+      return false;
+    if(this.token == "")
+      return false;
     return !this.jwtHelper.isTokenExpired(this.token);
   }
 

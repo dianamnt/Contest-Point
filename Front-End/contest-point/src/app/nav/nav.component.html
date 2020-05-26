@@ -1,5 +1,35 @@
 <mat-toolbar class="navbar">
-  <span class="company__logo">CP</span>
+  <div class="right__side">
+    <span class="company__logo">CP</span>
+    <span class="nav__button__wrapper">
+      <button (click)="goToDashboard()" matTooltip="All Contests" mat-mini-fab class="nav__button"><span class="material-icons">
+          home
+        </span>
+      </button>
+    </span>
+    <span class="nav__button__wrapper">
+      <button matTooltip="My Contests" mat-mini-fab class="nav__button"><span class="material-icons">
+          event_note
+        </span>
+      </button>
+    </span>
+    <span class="nav__button__wrapper">
+      <button matTooltip="Favorites" mat-mini-fab class="nav__button"><span class="material-icons">
+        favorite
+        </span>
+      </button>
+    </span>
+    <span class="nav__button__wrapper">
+      <button (click)="goToAddContest()" matTooltip="Add a contest" mat-mini-fab class="nav__button"><span class="material-icons">
+        add
+        </span>
+      </button>
+    </span>
+  </div>
   <span class="fill__space"></span>
-  <span>Right Aligned Text</span>
+  <button matTooltip="Contest Point Account for {{ user.firstName }} {{ user.lastName }}" mat-mini-fab [matMenuTriggerFor]="menu" class="left__side">{{ initials }}</button>
+  <mat-menu #menu="matMenu" class="profile__menu">
+    <button class="menu__item" mat-menu-item>Profile</button>
+    <button class="menu__item" (click)="logout()" mat-menu-item>Log out</button>
+  </mat-menu>
 </mat-toolbar>

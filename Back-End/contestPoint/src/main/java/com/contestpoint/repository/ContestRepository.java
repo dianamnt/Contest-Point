@@ -1,15 +1,21 @@
 package com.contestpoint.repository;
 
 import com.contestpoint.model.Contest;
+import com.contestpoint.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 @Repository
@@ -56,6 +62,21 @@ public class ContestRepository {
         }catch (Error e){
             return null;
         }
+    }
+
+    public Contest findByEverything(String name, Long userId){
+        Session session = sessionFactory.getCurrentSession();
+        Query hql = session.createQuery("from Contest c where c.contestName = :name and c.user.id = :userId")
+                .setParameter("name", name)
+                .setParameter("userId", userId);
+
+        Contest foundContest = null;
+        try {
+            foundContest = (Contest) hql.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        return foundContest;
     }
 
 }

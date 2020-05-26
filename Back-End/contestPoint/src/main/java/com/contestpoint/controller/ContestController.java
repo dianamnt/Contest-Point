@@ -1,8 +1,11 @@
 package com.contestpoint.controller;
 
 import com.contestpoint.dto.ContestDTO;
+import com.contestpoint.dto.UserDTO;
+import com.contestpoint.model.Contest;
 import com.contestpoint.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +24,14 @@ public class ContestController {
     }
 
     @PostMapping("/saveContest")
-    public ResponseEntity<String> saveContest(@RequestBody ContestDTO ContestDTO) throws Exception {
-        contestService.createContest(ContestDTO);
-        return ResponseEntity.ok("Contest saved");
+    public ResponseEntity<?> saveContest(@RequestBody ContestDTO contestDTO) throws Exception {
+        if(contestService.findByEverything(contestDTO.getContestName(), contestDTO.getUserId()) == null)
+        {
+            contestService.createContest(contestDTO);
+            return new ResponseEntity<>(contestDTO, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
     }
 
     @PostMapping("/deleteContest/{ContestId}")
@@ -36,5 +44,15 @@ public class ContestController {
     public ResponseEntity<String> updateContest(@RequestBody ContestDTO ContestDTO) throws Exception {
         contestService.updateContest(ContestDTO);
         return ResponseEntity.ok("Contest updated");
+    }
+
+    @PostMapping("/findByEverything")
+    public ResponseEntity<?> findByEmail(@RequestBody ContestDTO contestDTO) throws Exception {
+        ContestDTO aux = contestService.findByEverything(contestDTO.getContestName(), contestDTO.getUserId());
+        if(aux != null)
+        {
+            return new ResponseEntity<>(aux, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }
