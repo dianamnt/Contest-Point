@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface LocationService {
-    void createLocation(LocationDTO Location) throws Exception;
+    LocationDTO createLocation(LocationDTO Location) throws Exception;
 
     void deleteLocation(Long LocationId);
 

@@ -42,9 +42,10 @@ public class LocationRepository {
     }
 
 
-    public void saveData(Location Location) {
+    public Long saveData(Location Location) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(Location);
+        Long id = (Long) currentSession.save(Location);
+        return id;
     }
 
 

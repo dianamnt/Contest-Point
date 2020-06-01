@@ -23,9 +23,11 @@ public class RequirementServiceImpl implements RequirementService{
 
     @Override
     @Transactional
-    public void createRequirement(RequirementDTO RequirementDTO) {
-        Requirement Requirement = RequirementMapper.toEntity(RequirementDTO);
-        RequirementRepository.saveData(Requirement);
+    public RequirementDTO createRequirement(RequirementDTO requirementDTO) {
+        Requirement requirement = RequirementMapper.toEntity(requirementDTO);
+        Long id = RequirementRepository.saveData(requirement);
+        requirement.setRequirementId(id);
+        return RequirementMapper.toDTO(requirement);
     }
 
     @Override

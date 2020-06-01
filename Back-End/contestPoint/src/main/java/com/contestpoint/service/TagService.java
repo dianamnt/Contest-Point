@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface TagService {
-    void createTag(TagDTO Tag) throws Exception;
+    TagDTO createTag(TagDTO Tag) throws Exception;
 
     void deleteTag(Long TagId);
 
@@ -16,4 +16,6 @@ public interface TagService {
     List<TagDTO> findAllTags();
 
     TagDTO findById(Long id);
+
+    TagDTO findByName(String name);
 }

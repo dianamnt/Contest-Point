@@ -1,9 +1,8 @@
 package com.contestpoint.controller;
 
-import com.contestpoint.dto.ContestDTO;
-import com.contestpoint.dto.UserDTO;
-import com.contestpoint.model.Contest;
-import com.contestpoint.service.ContestService;
+import com.contestpoint.dto.*;
+import com.contestpoint.model.*;
+import com.contestpoint.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,21 @@ public class ContestController {
     @Autowired
     private ContestService contestService;
 
+    @Autowired
+    private LocationService locationService;
+
+    @Autowired
+    private LocationContestService locationContestService;
+
+    @Autowired
+    private TagService tagService;
+
+    @Autowired
+    private TagContestService tagContestService;
+
+    @Autowired
+    private RequirementService requirementService;
+
     @GetMapping("/list")
     public ResponseEntity<List<ContestDTO>> listContests() {
         return  ResponseEntity.ok(contestService.findAllContests());
@@ -25,12 +39,60 @@ public class ContestController {
 
     @PostMapping("/saveContest")
     public ResponseEntity<?> saveContest(@RequestBody ContestDTO contestDTO) throws Exception {
-        if(contestService.findByEverything(contestDTO.getContestName(), contestDTO.getUserId()) == null)
-        {
-            contestService.createContest(contestDTO);
-            return new ResponseEntity<>(contestDTO, HttpStatus.OK);
+        ContestDTO newcontestDTO = contestService.createContest(contestDTO);
+        return new ResponseEntity<>(newcontestDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/saveContestDetailed")
+    public ResponseEntity<?> saveContestDetailed(@RequestBody ContestDetailedDTO contestDetailedDTO) throws Exception {
+        ContestDTO contestDTO = new ContestDTO();
+        contestDTO.setUserId(contestDetailedDTO.getUserId());
+        contestDTO.setContestId(contestDetailedDTO.getContestId());
+        contestDTO.setContestName(contestDetailedDTO.getContestName());
+        contestDTO.setDetails(contestDetailedDTO.getDetails());
+        contestDTO.setCoverPicture(contestDetailedDTO.getCoverPicture());
+        contestDTO.setPartners(contestDetailedDTO.getPartners());
+        contestDTO.setStartDate(contestDetailedDTO.getStartDate());
+        contestDTO.setEndDate(contestDetailedDTO.getEndDate());
+        contestDTO.setEnrollmentStart(contestDetailedDTO.getEnrollmentStart());
+        contestDTO.setEnrollmentDue(contestDetailedDTO.getEnrollmentDue());
+
+        ContestDTO newcontestDTO = contestService.createContest(contestDTO);
+
+        if(contestDetailedDTO.getLocations() != null) {
+            LocationContestDTO locationContestDTO = new LocationContestDTO();
+            locationContestDTO.setContestId(newcontestDTO.getContestId());
+            for(LocationDTO l: contestDetailedDTO.getLocations())
+            {
+                LocationDTO newl = locationService.createLocation(l);
+                locationContestDTO.setLocationId(newl.getLocationId());
+                locationContestService.createLocationContest(locationContestDTO);
+            }
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+        if(contestDetailedDTO.getTags() != null) {
+            TagContestDTO tagContestDTO = new TagContestDTO();
+            tagContestDTO.setContestId(newcontestDTO.getContestId());
+            for(TagDTO t: contestDetailedDTO.getTags())
+            {
+                if(tagService.findByName(t.getTagName()) == null) {
+                    TagDTO newt = tagService.createTag(t);
+                    tagContestDTO.setTagId(newt.getTagId());
+                }
+                tagContestDTO.setTagId(tagService.findByName(t.getTagName()).getTagId());
+                tagContestService.createTagContest(tagContestDTO);
+            }
+        }
+
+        if(contestDetailedDTO.getRequirements() != null) {
+            for(RequirementDTO r: contestDetailedDTO.getRequirements())
+            {
+                r.setContestId(newcontestDTO.getContestId());
+                RequirementDTO newr = requirementService.createRequirement(r);
+            }
+        }
+
+        return new ResponseEntity<>(newcontestDTO, HttpStatus.OK);
 
     }
 
@@ -44,15 +106,5 @@ public class ContestController {
     public ResponseEntity<String> updateContest(@RequestBody ContestDTO ContestDTO) throws Exception {
         contestService.updateContest(ContestDTO);
         return ResponseEntity.ok("Contest updated");
-    }
-
-    @PostMapping("/findByEverything")
-    public ResponseEntity<?> findByEmail(@RequestBody ContestDTO contestDTO) throws Exception {
-        ContestDTO aux = contestService.findByEverything(contestDTO.getContestName(), contestDTO.getUserId());
-        if(aux != null)
-        {
-            return new ResponseEntity<>(aux, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

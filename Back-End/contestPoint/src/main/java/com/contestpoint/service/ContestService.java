@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface ContestService {
-    void createContest(ContestDTO Contest) throws Exception;
+    ContestDTO createContest(ContestDTO Contest) throws Exception;
 
     void deleteContest(Long ContestId);
 
@@ -18,6 +18,4 @@ public interface ContestService {
     List<ContestDTO> findAllContests();
 
     ContestDTO findById(Long id);
-
-    ContestDTO findByEverything(String name, Long userId);
 }

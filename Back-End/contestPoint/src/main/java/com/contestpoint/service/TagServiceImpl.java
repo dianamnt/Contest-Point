@@ -1,8 +1,10 @@
 package com.contestpoint.service;
 
 import com.contestpoint.dto.TagDTO;
+import com.contestpoint.dto.UserDTO;
 import com.contestpoint.mapper.TagMapper;
 import com.contestpoint.model.Tag;
+import com.contestpoint.model.User;
 import com.contestpoint.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,9 +25,13 @@ public class TagServiceImpl implements TagService{
 
     @Override
     @Transactional
-    public void createTag(TagDTO TagDTO) {
-        Tag Tag = TagMapper.toEntity(TagDTO);
-        TagRepository.saveData(Tag);
+    public TagDTO createTag(TagDTO tagDTO) {
+        Tag tag = TagMapper.toEntity(tagDTO);
+        Long id = TagRepository.saveData(tag);
+        TagDTO newtagDTO = new TagDTO();
+        newtagDTO.setTagId(id);
+        newtagDTO.setTagName(tagDTO.getTagName());
+        return newtagDTO;
     }
 
     @Override
@@ -62,5 +68,15 @@ public class TagServiceImpl implements TagService{
             return null;
         }
         return TagMapper.toDTO(Tag);
+    }
+
+    @Override
+    @Transactional
+    public TagDTO findByName(String name) {
+        Tag tag = TagRepository.findByName(name);
+        if (tag == null) {
+            return null;
+        }
+        return TagMapper.toDTO(tag);
     }
 }

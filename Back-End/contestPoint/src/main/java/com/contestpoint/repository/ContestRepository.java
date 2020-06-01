@@ -48,9 +48,10 @@ public class ContestRepository {
     }
 
 
-    public void saveData(Contest Contest) {
+    public Long saveData(Contest Contest) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(Contest);
+        Long id = (Long) currentSession.save(Contest);
+        return id;
     }
 
 
@@ -62,21 +63,6 @@ public class ContestRepository {
         }catch (Error e){
             return null;
         }
-    }
-
-    public Contest findByEverything(String name, Long userId){
-        Session session = sessionFactory.getCurrentSession();
-        Query hql = session.createQuery("from Contest c where c.contestName = :name and c.user.id = :userId")
-                .setParameter("name", name)
-                .setParameter("userId", userId);
-
-        Contest foundContest = null;
-        try {
-            foundContest = (Contest) hql.getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-        return foundContest;
     }
 
 }

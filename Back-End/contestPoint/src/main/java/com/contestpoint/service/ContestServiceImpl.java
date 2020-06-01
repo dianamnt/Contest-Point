@@ -25,9 +25,11 @@ public class ContestServiceImpl implements ContestService{
 
     @Override
     @Transactional
-    public void createContest(ContestDTO ContestDTO) {
-        Contest Contest = ContestMapper.toEntity(ContestDTO);
-        ContestRepository.saveData(Contest);
+    public ContestDTO createContest(ContestDTO contestDTO) {
+        Contest contest = ContestMapper.toEntity(contestDTO);
+        Long id = ContestRepository.saveData(contest);
+        contest.setContestId(id);
+        return ContestMapper.toDTO(contest);
     }
 
     @Override
@@ -64,15 +66,5 @@ public class ContestServiceImpl implements ContestService{
             return null;
         }
         return ContestMapper.toDTO(Contest);
-    }
-
-    @Override
-    @Transactional
-    public ContestDTO findByEverything(String name, Long userId) {
-        Contest contest = ContestRepository.findByEverything(name, userId);
-        if (contest == null) {
-            return null;
-        }
-        return ContestMapper.toDTO(contest);
     }
 }

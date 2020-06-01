@@ -3,6 +3,7 @@ package com.contestpoint.controller;
 import com.contestpoint.dto.TagDTO;
 import com.contestpoint.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,9 @@ public class TagController {
     }
 
     @PostMapping("/saveTag")
-    public ResponseEntity<String> saveTag(@RequestBody TagDTO tagDTO) throws Exception {
-        tagService.createTag(tagDTO);
-        return ResponseEntity.ok("Tag saved");
+    public ResponseEntity<?> saveTag(@RequestBody TagDTO tagDTO) throws Exception {
+        TagDTO newTagDTO = tagService.createTag(tagDTO);
+        return new ResponseEntity<>(newTagDTO, HttpStatus.OK);
     }
 
     @PostMapping("/deleteTag/{TagId}")

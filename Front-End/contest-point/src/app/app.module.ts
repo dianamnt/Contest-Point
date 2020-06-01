@@ -48,6 +48,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SuccessComponent } from './success/success.component';
 import { AddContestComponent } from './add-contest/add-contest.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { AddContestComponent } from './add-contest/add-contest.component';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     HttpClientModule,
     ToastrModule.forRoot()
   ],

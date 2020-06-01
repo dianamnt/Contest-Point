@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface RequirementService {
-    void createRequirement(RequirementDTO Requirement) throws Exception;
+    RequirementDTO createRequirement(RequirementDTO Requirement) throws Exception;
 
     void deleteRequirement(Long RequirementId);
 

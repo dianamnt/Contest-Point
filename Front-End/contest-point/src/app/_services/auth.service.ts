@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_models/user';
-import { map } from 'rxjs/operators'
-import { baseUrl } from 'src/environments/environment';
+import { baseUrl } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt'
 
 @Injectable({

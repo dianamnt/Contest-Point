@@ -42,9 +42,10 @@ public class RequirementRepository {
     }
 
 
-    public void saveData(Requirement Requirement) {
+    public Long saveData(Requirement Requirement) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(Requirement);
+        Long id = (Long) currentSession.save(Requirement);
+        return id;
     }
 
 

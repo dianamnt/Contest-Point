@@ -23,9 +23,11 @@ public class LocationServiceImpl implements LocationService{
 
     @Override
     @Transactional
-    public void createLocation(LocationDTO LocationDTO) {
-        Location Location = LocationMapper.toEntity(LocationDTO);
-        LocationRepository.saveData(Location);
+    public LocationDTO createLocation(LocationDTO locationDTO) {
+        Location location = LocationMapper.toEntity(locationDTO);
+        Long id = LocationRepository.saveData(location);
+        location.setLocationId(id);
+        return LocationMapper.toDTO(location);
     }
 
     @Override

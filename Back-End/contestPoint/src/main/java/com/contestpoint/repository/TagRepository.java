@@ -1,11 +1,13 @@
 package com.contestpoint.repository;
 
 import com.contestpoint.model.Tag;
+import com.contestpoint.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -42,9 +44,10 @@ public class TagRepository {
     }
 
 
-    public void saveData(Tag tag) {
+    public Long saveData(Tag tag) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(tag);
+        Long id = (Long) currentSession.save(tag);
+        return id;
     }
 
 
@@ -56,6 +59,19 @@ public class TagRepository {
         }catch (Error e){
             return null;
         }
+    }
+
+    public Tag findByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query hql = session.createQuery("from Tag t where t.tagName = :name")
+                .setParameter("name", name);
+        Tag foundTag = null;
+        try {
+            foundTag = (Tag) hql.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        return foundTag;
     }
 
 }
