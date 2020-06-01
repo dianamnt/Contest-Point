@@ -1,7 +1,11 @@
 package com.contestpoint.service;
 
+import com.contestpoint.dto.ContractDetailedDTO;
+import com.contestpoint.dto.DetailDTO;
 import com.contestpoint.dto.ParticipationContractDTO;
 import com.contestpoint.mapper.ParticipationContractMapper;
+import com.contestpoint.model.Contest;
+import com.contestpoint.model.Detail;
 import com.contestpoint.model.ParticipationContract;
 import com.contestpoint.repository.ParticipationContractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +25,19 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
     @Autowired
     private com.contestpoint.mapper.ParticipationContractMapper ParticipationContractMapper;
 
+    @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
+    private DetailService detailService;
+
     @Override
     @Transactional
-    public void createParticipationContract(ParticipationContractDTO ParticipationContractDTO) {
-        ParticipationContract ParticipationContract = ParticipationContractMapper.toEntity(ParticipationContractDTO);
-        ParticipationContractRepository.saveData(ParticipationContract);
+    public ParticipationContractDTO createParticipationContract(ParticipationContractDTO participationContractDTO) {
+        ParticipationContract participationContract = ParticipationContractMapper.toEntity(participationContractDTO);
+        Long id = ParticipationContractRepository.saveData(participationContract);
+        participationContract.setPcId(id);
+        return ParticipationContractMapper.toDTO(participationContract);
     }
 
     @Override
@@ -52,6 +64,41 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
         }
 
         return ParticipationContractDTOList;
+    }
+
+    @Override
+    @Transactional
+    public List<ContractDetailedDTO> findAllDetailedContracts(Long userId, Long contestId) {
+        List<ParticipationContractDTO> participationContractDTOList = new ArrayList<>();
+        List<ContractDetailedDTO> contractsDetailed = new ArrayList<>();
+
+        for (ParticipationContract participationContract : ParticipationContractRepository.findAll()) {
+            ParticipationContractDTO participationContractDTO = ParticipationContractMapper.toDTO(participationContract);
+            participationContractDTOList.add(participationContractDTO);
+        }
+
+        for(ParticipationContractDTO pc: participationContractDTOList) {
+            ContractDetailedDTO contractDetailedDTO = new ContractDetailedDTO();
+            List<DetailDTO> details = new ArrayList<>();
+            if(pc.getContestId() == contestId && pc.getUserId() == userId)
+            {
+                contractDetailedDTO.setPcId(pc.getPcId());
+                contractDetailedDTO.setUserId(pc.getUserId());
+                contractDetailedDTO.setContestId(pc.getContestId());
+                contractDetailedDTO.setUserFirstName(userService.findById(pc.getUserId()).getFirstName());
+                contractDetailedDTO.setUserLastName(userService.findById(pc.getUserId()).getLastName());
+                contractDetailedDTO.setUserEmail(userService.findById(pc.getUserId()).getEmail());
+                for(DetailDTO d: detailService.findAllDetails()) {
+                    if(d.getPcId() == pc.getPcId()) {
+                        details.add(d);
+                    }
+                }
+                contractDetailedDTO.setDetails(details);
+                contractsDetailed.add(contractDetailedDTO);
+            }
+        }
+
+        return contractsDetailed;
     }
 
     @Override

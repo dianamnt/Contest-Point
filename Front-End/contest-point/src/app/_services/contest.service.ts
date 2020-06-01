@@ -33,4 +33,14 @@ export class ContestService {
     const body = JSON.stringify(contest);
     return this.http.post(baseUrl + 'contest/saveContestDetailed', body, options);
   }
+
+  getContests() {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/listDetailed',options);
+  }
 }

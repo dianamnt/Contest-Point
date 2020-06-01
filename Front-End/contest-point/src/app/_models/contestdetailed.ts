@@ -15,9 +15,12 @@ export class ContestDetailed {
     endDate: string;
     coverPicture: string;
     userId: number;
+    userFirstName: string;
+    userLastName: string;
+    userEmail: string;
+    userInstitution: string;
     locations: Location[];
     tags: Tag[];
-    contracts: ParticipationContract[];
     likes: Like[];
     requirements: Requirement[];
 }

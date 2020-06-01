@@ -42,9 +42,10 @@ public class ParticipationContractRepository {
     }
 
 
-    public void saveData(ParticipationContract ParticipationContract) {
+    public Long saveData(ParticipationContract participationContract) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(ParticipationContract);
+        Long id = (Long) currentSession.save(participationContract);
+        return id;
     }
 
 

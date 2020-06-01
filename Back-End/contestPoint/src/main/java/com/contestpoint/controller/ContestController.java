@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,12 @@ public class ContestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<ContestDTO>> listContests() {
-        return  ResponseEntity.ok(contestService.findAllContests());
+        return ResponseEntity.ok(contestService.findAllContests());
+    }
+
+    @GetMapping("/listDetailed")
+    public ResponseEntity<List<ContestDetailedDTO>> listContestDetailed() {
+        return ResponseEntity.ok(contestService.findAllContestDetailed());
     }
 
     @PostMapping("/saveContest")

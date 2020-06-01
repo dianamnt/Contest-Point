@@ -103,7 +103,7 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
+      <mat-step >
         <div class="form__header">Where is your contest held?</div>
         <mat-radio-group [(ngModel)]="labelPosition">
           <mat-radio-button class="location__button" (click)="onlineClicked()" value="after">Online</mat-radio-button>

@@ -20,14 +20,24 @@
   z-index: 1000;
 }
 
-.example-card {
+.contest__card {
   max-width: 300px;
   margin: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+.header__avatar {
+  background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .tab {
@@ -35,4 +45,9 @@
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+.likes__wrapper{
+  margin-bottom: 3%;
+  margin-left: 2%;
 }

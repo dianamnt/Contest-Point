@@ -26,9 +26,12 @@ public class ContestDetailedDTO {
     private Date endDate;
     private String coverPicture;
     private Long userId;
+    private String userFirstName;
+    private String userLastName;
+    private String userEmail;
+    private String userInstitution;
     private List<LocationDTO> locations;
     private List<TagDTO> tags;
-    private List<ParticipationContractDTO> contracts;
     private List<UserLikeDTO> likes;
     private List<RequirementDTO> requirements;
 }

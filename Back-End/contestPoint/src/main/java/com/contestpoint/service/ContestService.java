@@ -1,6 +1,7 @@
 package com.contestpoint.service;
 
 import com.contestpoint.dto.ContestDTO;
+import com.contestpoint.dto.ContestDetailedDTO;
 import com.contestpoint.dto.UserDTO;
 import com.contestpoint.model.Contest;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,6 @@ public interface ContestService {
     List<ContestDTO> findAllContests();
 
     ContestDTO findById(Long id);
+
+    List<ContestDetailedDTO> findAllContestDetailed();
 }
