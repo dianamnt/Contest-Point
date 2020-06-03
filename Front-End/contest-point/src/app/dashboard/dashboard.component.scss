@@ -26,6 +26,7 @@
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .header__avatar {
@@ -50,4 +51,8 @@
 .likes__wrapper{
   margin-bottom: 3%;
   margin-left: 2%;
+}
+
+.like__button {
+  z-index: 1001;
 }

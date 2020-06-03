@@ -32,10 +32,10 @@ public class ContractController {
         return  ResponseEntity.ok(participationContractService.findAllParticipationContracts());
     }
 
-    @GetMapping("/listDetailed/{userId}/{contestId}")
-    public ResponseEntity<List<ContractDetailedDTO>> listParticipationContracts(@PathVariable("userId") Long userId, @PathVariable("contestId") Long contestId) {
+    @GetMapping("/listDetailed")
+    public ResponseEntity<List<ContractDetailedDTO>> listParticipationContractsDetailed(@RequestParam Long userId, @RequestParam Long contestId) {
         if(contestService.findById(contestId).getUserId() == userId)
-            return new ResponseEntity<>(participationContractService.findAllDetailedContracts(userId, contestId), HttpStatus.OK);
+            return new ResponseEntity<>(participationContractService.findAllDetailedContracts(contestId), HttpStatus.OK);
         List<ContractDetailedDTO> nullList = new ArrayList<>();
         return new ResponseEntity<>(nullList, HttpStatus.NOT_FOUND);
     }

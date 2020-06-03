@@ -49,6 +49,12 @@ public class ContestController {
         return new ResponseEntity<>(newcontestDTO, HttpStatus.OK);
     }
 
+    @PostMapping("/findByIdDetailed")
+    public ResponseEntity<?> findByIdDetailed(@RequestBody Long id) {
+        ContestDetailedDTO newcontestDTO = contestService.findByIdDetailed(id);
+        return new ResponseEntity<>(newcontestDTO, HttpStatus.OK);
+    }
+
     @PostMapping("/saveContestDetailed")
     public ResponseEntity<?> saveContestDetailed(@RequestBody ContestDetailedDTO contestDetailedDTO) throws Exception {
         ContestDTO contestDTO = new ContestDTO();

@@ -20,5 +20,7 @@ public interface ContestService {
 
     ContestDTO findById(Long id);
 
+    ContestDetailedDTO findByIdDetailed(Long id);
+
     List<ContestDetailedDTO> findAllContestDetailed();
 }

@@ -18,5 +18,5 @@ public interface ParticipationContractService {
 
     ParticipationContractDTO findById(Long id);
 
-    List<ContractDetailedDTO> findAllDetailedContracts(Long userId, Long contestId);
+    List<ContractDetailedDTO> findAllDetailedContracts(Long contestId);
 }

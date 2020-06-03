@@ -49,6 +49,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SuccessComponent } from './success/success.component';
 import { AddContestComponent } from './add-contest/add-contest.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ContestComponent } from './contest/contest.component';
+import { DialogEnrollComponent } from './dialog-enroll/dialog-enroll.component';
+import { DialogContestantsComponent } from './dialog-contestants/dialog-contestants.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     WelcomeComponent,
     DashboardComponent,
     SuccessComponent,
-    AddContestComponent
+    AddContestComponent,
+    ContestComponent,
+    DialogEnrollComponent,
+    DialogContestantsComponent
   ],
   imports: [
     BrowserModule,

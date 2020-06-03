@@ -1,0 +1,14 @@
+<h2 class="font" mat-dialog-title>Contestants for {{contestName}}</h2>
+<mat-dialog-content class="wrapper">
+  <div class="item" *ngFor="let contract of contracts">
+    <div class="name">{{contract.userFirstName}} {{contract.userLastName}}</div>
+    <div class="email">{{contract.userEmail}}</div>
+    <div class="details">Details: </div>
+    <div class="detail" *ngFor="let detail of contract.details">
+        {{detail.textContent}}
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

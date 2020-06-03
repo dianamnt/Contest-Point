@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../_services/notification.service';
 import { ContestDetailed } from '../_models/contestdetailed';
-import { ContestService } from '../_services/contest.service'
+import { ContestService } from '../_services/contest.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   unbounded = false;
   contests: ContestDetailed[] = [];
 
-  constructor(private notificationService: NotificationService, private contestService: ContestService) { }
+  constructor(private notificationService: NotificationService, private contestService: ContestService, private router: Router) { }
 
   ngOnInit() {
     this.contestService.getContests().subscribe(
@@ -26,14 +27,21 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  like() {
+  like(event) {
+    event.stopPropagation();
     (<HTMLElement>document.querySelector('#like')).style.display = 'none';
     (<HTMLElement>document.querySelector('#dislike')).style.display = 'inline';
   }
 
-  dislike() {
+  dislike(event) {
+    event.stopPropagation();
     (<HTMLElement>document.querySelector('#dislike')).style.display = 'none';
     (<HTMLElement>document.querySelector('#like')).style.display = 'inline';
+  }
+
+  goToCurrentContest(contestId: number) {
+    localStorage.setItem('currentContest', contestId.toString());
+    this.router.navigate(['/contest']);
   }
 
 }

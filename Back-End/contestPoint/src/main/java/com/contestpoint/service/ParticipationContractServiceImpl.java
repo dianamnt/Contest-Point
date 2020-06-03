@@ -68,7 +68,7 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
 
     @Override
     @Transactional
-    public List<ContractDetailedDTO> findAllDetailedContracts(Long userId, Long contestId) {
+    public List<ContractDetailedDTO> findAllDetailedContracts(Long contestId) {
         List<ParticipationContractDTO> participationContractDTOList = new ArrayList<>();
         List<ContractDetailedDTO> contractsDetailed = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
         for(ParticipationContractDTO pc: participationContractDTOList) {
             ContractDetailedDTO contractDetailedDTO = new ContractDetailedDTO();
             List<DetailDTO> details = new ArrayList<>();
-            if(pc.getContestId() == contestId && pc.getUserId() == userId)
+            if(pc.getContestId() == contestId)
             {
                 contractDetailedDTO.setPcId(pc.getPcId());
                 contractDetailedDTO.setUserId(pc.getUserId());

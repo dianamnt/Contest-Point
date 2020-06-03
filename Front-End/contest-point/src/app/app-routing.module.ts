@@ -7,6 +7,7 @@ import {
   AuthGuardService as AuthGuard 
 } from './_guards/auth-guard.service';
 import { AddContestComponent} from './add-contest/add-contest.component';
+import { ContestComponent } from './contest/contest.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   {path: 'success', component: SuccessComponent, canActivate: [AuthGuard]},
   {path: 'add', component: AddContestComponent, canActivate: [AuthGuard]},
-  { path: '**', redirectTo: 'welcome' }
+  {path: 'contest', component: ContestComponent, canActivate: [AuthGuard]},
+  {path: '**', redirectTo: 'welcome'}
 ];
 
 @NgModule({
