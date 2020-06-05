@@ -1,8 +1,6 @@
 package com.contestpoint.controller;
 
-import com.contestpoint.dto.ContractDetailedDTO;
-import com.contestpoint.dto.DetailDTO;
-import com.contestpoint.dto.ParticipationContractDTO;
+import com.contestpoint.dto.*;
 import com.contestpoint.service.ContestService;
 import com.contestpoint.service.DetailService;
 import com.contestpoint.service.ParticipationContractService;
@@ -56,21 +54,29 @@ public class ContractController {
         return new ResponseEntity<>(newParticipationContractDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/saveParticipationContract")
-    public ResponseEntity<String> saveParticipationContract(@RequestBody ParticipationContractDTO ParticipationContractDTO) throws Exception {
-        participationContractService.createParticipationContract(ParticipationContractDTO);
-        return ResponseEntity.ok("ParticipationContract saved");
+    @PostMapping("/saveContract")
+    public ResponseEntity<?> saveParticipationContract(@RequestBody ParticipationContractDTO participationContractDTO) throws Exception {
+        participationContractService.createParticipationContract(participationContractDTO);
+        return new ResponseEntity<>(participationContractDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/deleteParticipationContract/{ParticipationContractId}")
-    public ResponseEntity<String> deleteParticipationContract(@PathVariable("ParticipationContractId") Long id) {
-        participationContractService.deleteParticipationContract(id);
-        return ResponseEntity.ok("ParticipationContract deleted");
+    @PostMapping("/deleteContract")
+    public ResponseEntity<?> deleteParticipationContract(@RequestBody AuxDTO auxDTO) {
+        participationContractService.deleteParticipationContract(auxDTO.getFirstSensitiveDataParam());
+        return new ResponseEntity<>(auxDTO, HttpStatus.OK);
     }
 
     @PostMapping("/updateParticipationContract")
     public ResponseEntity<String> updateParticipationContract(@RequestBody ParticipationContractDTO ParticipationContractDTO) throws Exception {
         participationContractService.updateParticipationContract(ParticipationContractDTO);
         return ResponseEntity.ok("ParticipationContract updated");
+    }
+
+    @PostMapping("/isEnrolled")
+    public ResponseEntity<?> isLiked(@RequestBody AuxDTO auxDTO) {
+        ParticipationContractDTO participationContractDTO = participationContractService.isEnrolled(auxDTO.getFirstSensitiveDataParam(), auxDTO.getSecondSensitiveDataParam());
+        if(participationContractDTO != null)
+            return new ResponseEntity<>(participationContractDTO, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

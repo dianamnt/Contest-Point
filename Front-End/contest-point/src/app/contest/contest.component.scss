@@ -41,6 +41,9 @@
   margin-left: 5%;
   margin-top: 2%;
   margin-bottom: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .contest__details {
@@ -88,4 +91,12 @@
 
 .enroll__button {
   margin-left: 5%;
+}
+
+.delete__button {
+  margin-right: 5%;
+}
+
+.first__half {
+  width: 100%;
 }

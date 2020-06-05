@@ -210,4 +210,59 @@ public class ContestServiceImpl implements ContestService{
 
         return  contestDetailedDTOList;
     }
+
+    @Override
+    @Transactional
+    public List<ContestDetailedDTO> findAllMyContests(Long id) {
+        List<ContestDTO> contests = new ArrayList<>();
+
+        for (Contest contest : ContestRepository.findAll()) {
+            if(contest.getUser().getUserId() == id) {
+                ContestDTO ContestDTO = ContestMapper.toDTO(contest);
+                contests.add(ContestDTO);
+            }
+        }
+
+        List<ContestDetailedDTO> contestDetailedDTOList = new ArrayList<>();
+
+        for(ContestDTO c: contests) {
+            ContestDetailedDTO contestDetailedDTO = new ContestDetailedDTO();
+            List<TagDTO> tags = new ArrayList<>();
+            List<UserLikeDTO> likes = new ArrayList<>();
+
+            contestDetailedDTO.setContestId(c.getContestId());
+            contestDetailedDTO.setContestName(c.getContestName());
+            contestDetailedDTO.setDetails(c.getDetails());
+            contestDetailedDTO.setPartners(c.getPartners());
+            contestDetailedDTO.setCoverPicture(c.getCoverPicture());
+            contestDetailedDTO.setStartDate(c.getStartDate());
+            contestDetailedDTO.setEndDate(c.getEndDate());
+            contestDetailedDTO.setEnrollmentStart(c.getEnrollmentStart());
+            contestDetailedDTO.setEnrollmentDue(c.getEnrollmentDue());
+            contestDetailedDTO.setUserId(c.getUserId());
+            contestDetailedDTO.setUserFirstName(userService.findById(c.getUserId()).getFirstName());
+            contestDetailedDTO.setUserLastName(userService.findById(c.getUserId()).getLastName());
+            contestDetailedDTO.setUserEmail(userService.findById(c.getUserId()).getEmail());
+            contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
+
+            for(TagContestDTO tc: tagContestService.findAllTagContests()) {
+                if(tc.getContestId() == c.getContestId()) {
+                    tags.add(tagService.findById(tc.getTagId()));
+                }
+            }
+
+            contestDetailedDTO.setTags(tags);
+
+            for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
+                if(l.getContestId() == c.getContestId())
+                    likes.add(l);
+            }
+
+            contestDetailedDTO.setLikes(likes);
+
+            contestDetailedDTOList.add(contestDetailedDTO);
+        }
+
+        return  contestDetailedDTOList;
+    }
 }

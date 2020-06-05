@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { baseUrl } from '../../environments/environment';
-import { ContractDetailed } from '../_models/contractdetailed';
-import { Aux } from '../_models/auxiliary';
+import { Aux } from '../_models/aux'
+import { Like } from '../_models/like';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContractService {
+export class LikeService {
   token: any;
 
   constructor(private http: HttpClient) { }
 
-  enroll(contract: ContractDetailed) {
+  addLike(like: Like) {
     this.token = localStorage.getItem('token').toString();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': this.token
     });
     const options = { headers };
-    const body = JSON.stringify(contract);
-    return this.http.post(baseUrl + 'contract/enroll', body, options);
+    const body = JSON.stringify(like);
+    return this.http.post(baseUrl + 'like/saveLike', body, options);
   }
 
-  deleteContract(contractId: number) {
+  deleteLike(likeId: number) {
     this.token = localStorage.getItem('token').toString();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -31,12 +31,12 @@ export class ContractService {
     });
     const options = { headers };
     let aux: Aux = new Aux();
-    aux.firstSensitiveDataParam = contractId;
+    aux.firstSensitiveDataParam = likeId;
     const body = JSON.stringify(aux);
-    return this.http.post(baseUrl + 'contract/deleteContract', body, options);
+    return this.http.post(baseUrl + 'like/deleteLike', body, options);
   }
 
-  isEnrolled(userId: number, contestId: number) {
+  isLiked(userId: number, contestId: number) {
     this.token = localStorage.getItem('token').toString();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -47,16 +47,6 @@ export class ContractService {
     aux.firstSensitiveDataParam = userId;
     aux.secondSensitiveDataParam = contestId;
     const body = JSON.stringify(aux);
-    return this.http.post(baseUrl + 'contract/isEnrolled', body, options);
-  }
-
-  getContracts(userId: number, contestId: number) {
-    this.token = localStorage.getItem('token').toString();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.token
-    });
-    const options = { headers };
-    return this.http.get(baseUrl + 'contract/listDetailed?userId=' + userId.toString() + '&contestId=' + contestId.toString(),options);
+    return this.http.post(baseUrl + 'like/isLiked', body, options);
   }
 }

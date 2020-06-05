@@ -2,6 +2,7 @@ package com.contestpoint.service;
 
 import com.contestpoint.dto.UserLikeDTO;
 import com.contestpoint.mapper.UserLikeMapper;
+import com.contestpoint.model.Contest;
 import com.contestpoint.model.UserLike;
 import com.contestpoint.repository.UserLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,11 @@ public class UserLikeServiceImpl implements UserLikeService{
 
     @Override
     @Transactional
-    public void createUserLike(UserLikeDTO UserLikeDTO) {
+    public UserLikeDTO createUserLike(UserLikeDTO UserLikeDTO) {
         UserLike UserLike = UserLikeMapper.toEntity(UserLikeDTO);
-        UserLikeRepository.saveData(UserLike);
+        Long id = UserLikeRepository.saveData(UserLike);
+        UserLike.setUserlikeId(id);
+        return UserLikeMapper.toDTO(UserLike);
     }
 
     @Override
@@ -58,6 +61,16 @@ public class UserLikeServiceImpl implements UserLikeService{
     @Transactional
     public UserLikeDTO findById(Long id) {
         UserLike UserLike = UserLikeRepository.findById(id);
+        if (UserLike == null) {
+            return null;
+        }
+        return UserLikeMapper.toDTO(UserLike);
+    }
+
+    @Override
+    @Transactional
+    public UserLikeDTO isLiked(Long userId, Long contestId) {
+        UserLike UserLike = UserLikeRepository.isLiked(userId, contestId);
         if (UserLike == null) {
             return null;
         }

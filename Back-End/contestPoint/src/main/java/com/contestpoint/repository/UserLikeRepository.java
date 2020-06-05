@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -43,9 +44,10 @@ public class UserLikeRepository {
     }
 
 
-    public void saveData(UserLike like) {
+    public Long saveData(UserLike like) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(like);
+        Long id = (Long) currentSession.save(like);
+        return id;
     }
 
 
@@ -58,5 +60,21 @@ public class UserLikeRepository {
             return null;
         }
     }
+
+    public UserLike isLiked(Long userId, Long contestId){
+        Session session = sessionFactory.getCurrentSession();
+        Query hql = session.createQuery("from UserLike u where u.user.id = :userId and u.contest.id = :contestId")
+                .setParameter("userId", userId)
+                .setParameter("contestId", contestId);
+
+        UserLike foundLike = null;
+        try {
+            foundLike = (UserLike) hql.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        return foundLike;
+    }
+
 
 }

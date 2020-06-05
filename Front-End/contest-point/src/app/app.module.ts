@@ -52,6 +52,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ContestComponent } from './contest/contest.component';
 import { DialogEnrollComponent } from './dialog-enroll/dialog-enroll.component';
 import { DialogContestantsComponent } from './dialog-contestants/dialog-contestants.component';
+import { DialogUnenrollComponent } from './dialog-unenroll/dialog-unenroll.component';
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { DialogContestantsComponent } from './dialog-contestants/dialog-contesta
     AddContestComponent,
     ContestComponent,
     DialogEnrollComponent,
-    DialogContestantsComponent
+    DialogContestantsComponent,
+    DialogUnenrollComponent,
+    DialogDeleteComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,

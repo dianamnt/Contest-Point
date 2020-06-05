@@ -1,11 +1,13 @@
 package com.contestpoint.repository;
 
 import com.contestpoint.model.ParticipationContract;
+import com.contestpoint.model.UserLike;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -57,6 +59,21 @@ public class ParticipationContractRepository {
         }catch (Error e){
             return null;
         }
+    }
+
+    public ParticipationContract isEnrolled(Long userId, Long contestId){
+        Session session = sessionFactory.getCurrentSession();
+        Query hql = session.createQuery("from ParticipationContract u where u.user.id = :userId and u.contest.id = :contestId")
+                .setParameter("userId", userId)
+                .setParameter("contestId", contestId);
+
+        ParticipationContract foundLike = null;
+        try {
+            foundLike = (ParticipationContract) hql.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        return foundLike;
     }
 
 }

@@ -110,4 +110,14 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
         }
         return ParticipationContractMapper.toDTO(ParticipationContract);
     }
+
+    @Override
+    @Transactional
+    public ParticipationContractDTO isEnrolled(Long userId, Long contestId) {
+        ParticipationContract ParticipationContract = ParticipationContractRepository.isEnrolled(userId,contestId);
+        if (ParticipationContract == null) {
+            return null;
+        }
+        return ParticipationContractMapper.toDTO(ParticipationContract);
+    }
 }

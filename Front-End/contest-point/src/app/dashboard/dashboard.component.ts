@@ -27,18 +27,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  like(event) {
-    event.stopPropagation();
-    (<HTMLElement>document.querySelector('#like')).style.display = 'none';
-    (<HTMLElement>document.querySelector('#dislike')).style.display = 'inline';
-  }
-
-  dislike(event) {
-    event.stopPropagation();
-    (<HTMLElement>document.querySelector('#dislike')).style.display = 'none';
-    (<HTMLElement>document.querySelector('#like')).style.display = 'inline';
-  }
-
   goToCurrentContest(contestId: number) {
     localStorage.setItem('currentContest', contestId.toString());
     this.router.navigate(['/contest']);

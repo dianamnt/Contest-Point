@@ -2,9 +2,10 @@
   <app-nav></app-nav>
   <div class="content__wrapper">
     <mat-tab-group>
-      <mat-tab label="For you">
+      <mat-tab label="All">
         <div class="tab">
-          <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contests" class="contest__card">
+          <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contests"
+            class="contest__card">
             <mat-card-header>
               <div mat-card-avatar class="header__avatar">
                 <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
@@ -12,14 +13,10 @@
               <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
-            <div class="likes__wrapper"><button mat-icon-button class="like__button" (click)="like($event)" id="like" aria-label="Like button">
+            <div class="likes__wrapper">
+              <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
                 <span class="material-icons">
                   favorite_border
-                </span>
-              </button><button mat-icon-button (click)="dislike($event)" class="like__button" color="warn" id=dislike style="display: none;"
-                aria-label="Like button">
-                <span class="material-icons">
-                  favorite
                 </span>
               </button>{{contest.likes.length}} likes</div>
             <mat-card-content>
@@ -35,7 +32,7 @@
           </mat-card>
         </div>
       </mat-tab>
-      <mat-tab label="All">
+      <mat-tab label="For you">
         <div class="tab">
         </div>
       </mat-tab>

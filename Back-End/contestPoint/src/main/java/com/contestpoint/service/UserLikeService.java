@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface UserLikeService {
-    void createUserLike(UserLikeDTO UserLike) throws Exception;
+    UserLikeDTO createUserLike(UserLikeDTO UserLike) throws Exception;
 
     void deleteUserLike(Long UserLikeId);
 
@@ -16,4 +16,6 @@ public interface UserLikeService {
     List<UserLikeDTO> findAllUserLikes();
 
     UserLikeDTO findById(Long id);
+
+    UserLikeDTO isLiked(Long userId, Long contestId);
 }

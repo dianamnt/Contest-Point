@@ -43,6 +43,11 @@ public class ContestController {
         return ResponseEntity.ok(contestService.findAllContestDetailed());
     }
 
+    @GetMapping("/listMyContests")
+    public ResponseEntity<List<ContestDetailedDTO>> listMyContests(@RequestParam Long userId) {
+        return ResponseEntity.ok(contestService.findAllMyContests(userId));
+    }
+
     @PostMapping("/saveContest")
     public ResponseEntity<?> saveContest(@RequestBody ContestDTO contestDTO) throws Exception {
         ContestDTO newcontestDTO = contestService.createContest(contestDTO);
@@ -108,15 +113,18 @@ public class ContestController {
 
     }
 
-    @PostMapping("/deleteContest/{ContestId}")
-    public ResponseEntity<String> deleteContest(@PathVariable("ContestId") Long id) {
-        contestService.deleteContest(id);
-        return ResponseEntity.ok("Contest deleted");
+    @PostMapping("/deleteContest")
+    public ResponseEntity<?> deleteContest(@RequestBody AuxDTO auxDTO) {
+        if(contestService.findById(auxDTO.getSecondSensitiveDataParam()).getUserId() == auxDTO.getFirstSensitiveDataParam()) {
+            contestService.deleteContest(auxDTO.getSecondSensitiveDataParam());
+            return new ResponseEntity<>(auxDTO, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/updateContest")
-    public ResponseEntity<String> updateContest(@RequestBody ContestDTO ContestDTO) throws Exception {
-        contestService.updateContest(ContestDTO);
-        return ResponseEntity.ok("Contest updated");
+    public ResponseEntity<?> updateContest(@RequestBody ContestDTO contestDTO) throws Exception {
+        contestService.updateContest(contestDTO);
+        return new ResponseEntity<>(contestDTO, HttpStatus.OK);
     }
 }

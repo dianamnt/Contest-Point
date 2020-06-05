@@ -1,5 +1,6 @@
-<h2 class="font" mat-dialog-title>Contestants for {{contestName}}</h2>
-<mat-dialog-content class="wrapper">
+<h2 *ngIf="this.contracts.length != 0" class="font" mat-dialog-title>Contestants for {{contestName}}</h2>
+<h2 *ngIf="this.contracts.length == 0" class="font" mat-dialog-title>Nobody enrolled for {{contestName}} yet</h2>
+<mat-dialog-content *ngIf="this.contracts.length != 0" class="wrapper">
   <div class="item" *ngFor="let contract of contracts">
     <div class="name">{{contract.userFirstName}} {{contract.userLastName}}</div>
     <div class="email">{{contract.userEmail}}</div>
