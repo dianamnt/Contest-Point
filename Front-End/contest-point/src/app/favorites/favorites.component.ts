@@ -7,40 +7,32 @@ import { Router } from '@angular/router';
 import { User } from '../_models/user';
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  selector: 'app-favorites',
+  templateUrl: './favorites.component.html',
+  styleUrls: ['./favorites.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class FavoritesComponent implements OnInit {
   centered = false;
   disabled = false;
   unbounded = false;
   currentUser: User;
-  contests: ContestDetailed[] = [];
-  contestsEnrolled: ContestDetailed[] = [];
-  contestsEnrolledUpcoming: ContestDetailed[] = [];
+  contestsLiked: ContestDetailed[] = [];
+  contestsLikedUpcoming: ContestDetailed[] = [];
 
   constructor(private notificationService: NotificationService, private contestService: ContestService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
-    this.contestService.getMyContests(this.currentUser.userId).subscribe(
+    this.contestService.getContestsLiked(this.currentUser.userId).subscribe(
       (data: ContestDetailed[]) => {
-        this.contests = data;
+        this.contestsLiked = data;
       },
       error => {
         this.notificationService.error("Data could not be retrieved!");
       });
-    this.contestService.getContestsEnrolled(this.currentUser.userId).subscribe(
+    this.contestService.getContestsLikedUpcoming(this.currentUser.userId).subscribe(
       (data: ContestDetailed[]) => {
-        this.contestsEnrolled = data;
-      },
-      error => {
-        this.notificationService.error("Data could not be retrieved!");
-      });
-    this.contestService.getContestsEnrolledUpcoming(this.currentUser.userId).subscribe(
-      (data: ContestDetailed[]) => {
-        this.contestsEnrolledUpcoming = data;
+        this.contestsLikedUpcoming = data;
       },
       error => {
         this.notificationService.error("Data could not be retrieved!");

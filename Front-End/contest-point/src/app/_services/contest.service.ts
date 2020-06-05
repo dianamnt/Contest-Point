@@ -79,4 +79,44 @@ export class ContestService {
     const options = { headers };
     return this.http.get(baseUrl + 'contest/listMyContests?userId=' + userId.toString(), options);
   }
+
+  getContestsEnrolled(userId: number) {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/listEnrolledContests?userId=' + userId.toString(), options);
+  }
+
+  getContestsEnrolledUpcoming(userId: number) {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/listEnrolledContestsUpcoming?userId=' + userId.toString(), options);
+  }
+
+  getContestsLiked(userId: number) {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/listLikedContests?userId=' + userId.toString(), options);
+  }
+
+  getContestsLikedUpcoming(userId: number) {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/listLikedContestsUpcoming?userId=' + userId.toString(), options);
+  }
 }

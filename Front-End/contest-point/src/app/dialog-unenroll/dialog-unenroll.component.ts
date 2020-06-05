@@ -5,7 +5,7 @@ import { ContestService } from '../_services/contest.service';
 import { ParticipationContract } from '../_models/participationcontract';
 import { AuthService } from '../_services/auth.service';
 import { User } from '../_models/user';
-import { Aux } from '../_models/aux';
+import { Aux } from '../_models/auxiliary';
 import { ContestDetailed } from '../_models/contestdetailed';
 
 @Component({

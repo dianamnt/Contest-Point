@@ -16,7 +16,7 @@ import { DialogUnenrollComponent } from '../dialog-unenroll/dialog-unenroll.comp
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
 import { ParticipationContract } from '../_models/participationcontract';
 import { Like } from '../_models/like';
-import { Aux } from '../_models/aux';
+import { Aux } from '../_models/auxiliary';
 
 @Component({
   selector: 'app-contest',

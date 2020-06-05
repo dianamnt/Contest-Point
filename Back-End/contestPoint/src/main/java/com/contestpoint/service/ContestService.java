@@ -26,7 +26,11 @@ public interface ContestService {
 
     List<ContestDetailedDTO> findAllMyContests(Long id);
 
-//    List<ContestDetailedDTO> findAllContestEnrolled(Long id);
-//
-//    List<ContestDetailedDTO> findAllContestsLiked(Long id);
+    List<ContestDetailedDTO> findAllContestEnrolled(Long id);
+
+    List<ContestDetailedDTO> findAllContestsEnrolledUpcoming(Long id);
+
+    List<ContestDetailedDTO> findAllContestsLiked(Long id);
+
+    List<ContestDetailedDTO> findAllContestsLikedUpcoming(Long id);
 }

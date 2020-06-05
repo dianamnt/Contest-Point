@@ -33,4 +33,12 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
+  goToMyContests() {
+    this.router.navigate(['/my-contests']);
+  }
+
+  goToMyFavorites() {
+    this.router.navigate(['/favorites']);
+  }
+
 }

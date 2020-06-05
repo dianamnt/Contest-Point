@@ -16,6 +16,7 @@ import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-contest',
@@ -52,7 +53,7 @@ export class AddContestComponent implements OnInit {
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private contestService: ContestService, private notifService: NotificationService, private tagService: TagService) {
+  constructor(private _formBuilder: FormBuilder, private authService: AuthService, private contestService: ContestService, private notifService: NotificationService, private tagService: TagService, private router: Router) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
@@ -244,7 +245,7 @@ export class AddContestComponent implements OnInit {
     this.contestService.addContestDetailed(this.contest).subscribe(
       (data: Contest) => {
         this.notifService.success("Contest created!");
-        // navigate to my creations
+        this.router.navigate(['/my-contests']);
       },
       error => {
         this.notifService.error("Contest could not be created!");

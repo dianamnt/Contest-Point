@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { baseUrl } from '../../environments/environment';
-import { Aux } from '../_models/aux'
+import { Aux } from '../_models/auxiliary'
 import { Like } from '../_models/like';
 
 @Injectable({

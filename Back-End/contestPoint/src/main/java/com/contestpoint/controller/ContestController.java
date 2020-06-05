@@ -48,6 +48,26 @@ public class ContestController {
         return ResponseEntity.ok(contestService.findAllMyContests(userId));
     }
 
+    @GetMapping("/listEnrolledContests")
+    public ResponseEntity<List<ContestDetailedDTO>> listEnrolledContests(@RequestParam Long userId) {
+        return ResponseEntity.ok(contestService.findAllContestEnrolled(userId));
+    }
+
+    @GetMapping("/listEnrolledContestsUpcoming")
+    public ResponseEntity<List<ContestDetailedDTO>> listEnrolledContestsUpcoming(@RequestParam Long userId) {
+        return ResponseEntity.ok(contestService.findAllContestsEnrolledUpcoming(userId));
+    }
+
+    @GetMapping("/listLikedContests")
+    public ResponseEntity<List<ContestDetailedDTO>> listLikedContests(@RequestParam Long userId) {
+        return ResponseEntity.ok(contestService.findAllContestsLiked(userId));
+    }
+
+    @GetMapping("/listLikedContestsUpcoming")
+    public ResponseEntity<List<ContestDetailedDTO>> listLikedContestsUpcoming(@RequestParam Long userId) {
+        return ResponseEntity.ok(contestService.findAllContestsLikedUpcoming(userId));
+    }
+
     @PostMapping("/saveContest")
     public ResponseEntity<?> saveContest(@RequestBody ContestDTO contestDTO) throws Exception {
         ContestDTO newcontestDTO = contestService.createContest(contestDTO);

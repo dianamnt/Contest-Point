@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContestService } from '../_services/contest.service';
 import { ContestDetailed } from '../_models/contestdetailed';
-import { Aux } from '../_models/aux';
+import { Aux } from '../_models/auxiliary';
 import { NotificationService } from '../_services/notification.service';
 import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';

@@ -8,6 +8,8 @@ import {
 } from './_guards/auth-guard.service';
 import { AddContestComponent} from './add-contest/add-contest.component';
 import { ContestComponent } from './contest/contest.component';
+import { EventsComponent } from './events/events.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path: 'success', component: SuccessComponent, canActivate: [AuthGuard]},
   {path: 'add', component: AddContestComponent, canActivate: [AuthGuard]},
   {path: 'contest', component: ContestComponent, canActivate: [AuthGuard]},
+  {path: 'my-contests', component: EventsComponent, canActivate: [AuthGuard]},
+  {path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'welcome'}
 ];
 
