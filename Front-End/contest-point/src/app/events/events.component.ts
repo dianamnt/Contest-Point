@@ -52,4 +52,9 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['/contest']);
   }
 
+  data(smth: any) {
+    localStorage.setItem('currentTag', smth.toString());
+    this.router.navigate(['/tag']);
+  }
+
 }

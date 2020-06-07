@@ -68,6 +68,16 @@ public class ContestController {
         return ResponseEntity.ok(contestService.findAllContestsLikedUpcoming(userId));
     }
 
+    @GetMapping("/filterByTag")
+    public ResponseEntity<List<ContestDetailedDTO>> filterByTag(@RequestParam String name) {
+        return ResponseEntity.ok(contestService.filterByTag(name));
+    }
+
+    @GetMapping("/trendingContests")
+    public ResponseEntity<List<ContestDetailedDTO>> trandingContests() {
+        return ResponseEntity.ok(contestService.trendingContests());
+    }
+
     @PostMapping("/saveContest")
     public ResponseEntity<?> saveContest(@RequestBody ContestDTO contestDTO) throws Exception {
         ContestDTO newcontestDTO = contestService.createContest(contestDTO);

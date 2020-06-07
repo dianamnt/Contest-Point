@@ -33,4 +33,8 @@ public interface ContestService {
     List<ContestDetailedDTO> findAllContestsLiked(Long id);
 
     List<ContestDetailedDTO> findAllContestsLikedUpcoming(Long id);
+
+    List<ContestDetailedDTO> filterByTag(String name);
+
+    List<ContestDetailedDTO> trendingContests();
 }

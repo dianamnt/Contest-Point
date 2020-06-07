@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @ComponentScan(basePackages = "com.contestpoint")
@@ -481,6 +480,139 @@ public class ContestServiceImpl implements ContestService{
         List<ContestDetailedDTO> contestDetailedDTOList = new ArrayList<>();
 
         for(ContestDTO c: contests) {
+            ContestDetailedDTO contestDetailedDTO = new ContestDetailedDTO();
+            List<TagDTO> tags = new ArrayList<>();
+            List<UserLikeDTO> likes = new ArrayList<>();
+
+            contestDetailedDTO.setContestId(c.getContestId());
+            contestDetailedDTO.setContestName(c.getContestName());
+            contestDetailedDTO.setDetails(c.getDetails());
+            contestDetailedDTO.setPartners(c.getPartners());
+            contestDetailedDTO.setCoverPicture(c.getCoverPicture());
+            contestDetailedDTO.setStartDate(c.getStartDate());
+            contestDetailedDTO.setEndDate(c.getEndDate());
+            contestDetailedDTO.setEnrollmentStart(c.getEnrollmentStart());
+            contestDetailedDTO.setEnrollmentDue(c.getEnrollmentDue());
+            contestDetailedDTO.setUserId(c.getUserId());
+            contestDetailedDTO.setUserFirstName(userService.findById(c.getUserId()).getFirstName());
+            contestDetailedDTO.setUserLastName(userService.findById(c.getUserId()).getLastName());
+            contestDetailedDTO.setUserEmail(userService.findById(c.getUserId()).getEmail());
+            contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
+
+            for(TagContestDTO tc: tagContestService.findAllTagContests()) {
+                if(tc.getContestId() == c.getContestId()) {
+                    tags.add(tagService.findById(tc.getTagId()));
+                }
+            }
+
+            contestDetailedDTO.setTags(tags);
+
+            for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
+                if(l.getContestId() == c.getContestId())
+                    likes.add(l);
+            }
+
+            contestDetailedDTO.setLikes(likes);
+
+            contestDetailedDTOList.add(contestDetailedDTO);
+        }
+
+        return  contestDetailedDTOList;
+    }
+
+    @Override
+    @Transactional
+    public List<ContestDetailedDTO> filterByTag(String name) {
+        TagDTO tagDTO = tagService.findByName(name);
+
+        List<Long> contestIds = new ArrayList<>();
+
+        for(TagContestDTO t: tagContestService.findAllTagContests()) {
+            if(tagDTO.getTagId() == t.getTagId()) {
+                contestIds.add(t.getContestId());
+            }
+        }
+
+        List<ContestDTO> contests = new ArrayList<>();
+
+        for (Contest contest : ContestRepository.findAll()) {
+            if(contestIds.contains(contest.getContestId())) {
+                ContestDTO ContestDTO = ContestMapper.toDTO(contest);
+                contests.add(ContestDTO);
+            }
+        }
+
+        List<ContestDetailedDTO> contestDetailedDTOList = new ArrayList<>();
+
+        for(ContestDTO c: contests) {
+            ContestDetailedDTO contestDetailedDTO = new ContestDetailedDTO();
+            List<TagDTO> tags = new ArrayList<>();
+            List<UserLikeDTO> likes = new ArrayList<>();
+
+            contestDetailedDTO.setContestId(c.getContestId());
+            contestDetailedDTO.setContestName(c.getContestName());
+            contestDetailedDTO.setDetails(c.getDetails());
+            contestDetailedDTO.setPartners(c.getPartners());
+            contestDetailedDTO.setCoverPicture(c.getCoverPicture());
+            contestDetailedDTO.setStartDate(c.getStartDate());
+            contestDetailedDTO.setEndDate(c.getEndDate());
+            contestDetailedDTO.setEnrollmentStart(c.getEnrollmentStart());
+            contestDetailedDTO.setEnrollmentDue(c.getEnrollmentDue());
+            contestDetailedDTO.setUserId(c.getUserId());
+            contestDetailedDTO.setUserFirstName(userService.findById(c.getUserId()).getFirstName());
+            contestDetailedDTO.setUserLastName(userService.findById(c.getUserId()).getLastName());
+            contestDetailedDTO.setUserEmail(userService.findById(c.getUserId()).getEmail());
+            contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
+
+            for(TagContestDTO tc: tagContestService.findAllTagContests()) {
+                if(tc.getContestId() == c.getContestId()) {
+                    tags.add(tagService.findById(tc.getTagId()));
+                }
+            }
+
+            contestDetailedDTO.setTags(tags);
+
+            for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
+                if(l.getContestId() == c.getContestId())
+                    likes.add(l);
+            }
+
+            contestDetailedDTO.setLikes(likes);
+
+            contestDetailedDTOList.add(contestDetailedDTO);
+        }
+
+        return  contestDetailedDTOList;
+    }
+
+    @Override
+    @Transactional
+    public List<ContestDetailedDTO> trendingContests() {
+        List<UserLikeDTO> likess = userLikeService.findAllUserLikes();
+
+        Map<ContestDTO, Integer> contestLikes = new HashMap<>();
+
+        for (Contest contest : ContestRepository.findAll()) {
+            ContestDTO contestDTO = ContestMapper.toDTO(contest);
+            contestLikes.put(contestDTO, 0);
+        }
+
+        for(UserLikeDTO l: likess) {
+            ContestDTO aux = this.findById(l.getContestId());
+            contestLikes.put(aux, contestLikes.get(aux) + 1);
+        }
+
+        Map<ContestDTO,Integer> topThree =
+                contestLikes.entrySet().stream()
+                        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                        .limit(3)
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        List<ContestDetailedDTO> contestDetailedDTOList = new ArrayList<>();
+
+        for(Map.Entry<ContestDTO,Integer> entry : topThree.entrySet()) {
+            ContestDTO c = entry.getKey();
             ContestDetailedDTO contestDetailedDTO = new ContestDetailedDTO();
             List<TagDTO> tags = new ArrayList<>();
             List<UserLikeDTO> likes = new ArrayList<>();

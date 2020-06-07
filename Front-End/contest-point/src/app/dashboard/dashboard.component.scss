@@ -48,11 +48,22 @@
   flex-wrap: wrap;
 }
 
-.likes__wrapper{
+.likes__wrapper {
   margin-bottom: 3%;
   margin-left: 2%;
 }
 
 .like__button {
   z-index: 1001;
+}
+
+.nothing {
+  font-size: xx-large;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
+  padding-top: 15%;
+  padding-bottom: 15%;
+  background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -4,32 +4,27 @@ import { ContestDetailed } from '../_models/contestdetailed';
 import { ContestService } from '../_services/contest.service';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-tag',
+  templateUrl: './tag.component.html',
+  styleUrls: ['./tag.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class TagComponent implements OnInit {
   centered = false;
   disabled = false;
   unbounded = false;
   contests: ContestDetailed[] = [];
-  contestsTrending: ContestDetailed[] = [];
+  tagName: string;
+  contestsForYou: ContestDetailed[] = [];
 
   constructor(private notificationService: NotificationService, private contestService: ContestService, private router: Router) { }
 
-  ngOnInit() {
-    this.contestService.getContests().subscribe(
+  ngOnInit(): void {
+    this.tagName = localStorage.getItem('currentTag').toString();
+    this.contestService.filterByTag(this.tagName).subscribe(
       (data: ContestDetailed[]) => {
         this.contests = data;
-      },
-      error => {
-        this.notificationService.error("Data could not be retrieved!");
-      });
-
-    this.contestService.trendingContests().subscribe(
-      (data: ContestDetailed[]) => {
-        this.contestsTrending = data;
       },
       error => {
         this.notificationService.error("Data could not be retrieved!");
@@ -43,7 +38,15 @@ export class DashboardComponent implements OnInit {
 
   data(smth: any) {
     localStorage.setItem('currentTag', smth.toString());
-    this.router.navigate(['/tag']);
+    this.tagName = localStorage.getItem('currentTag').toString();
+    this.contestService.filterByTag(this.tagName).subscribe(
+      (data: ContestDetailed[]) => {
+        this.contests = data;
+      },
+      error => {
+        this.notificationService.error("Data could not be retrieved!");
+      });
   }
+
 
 }

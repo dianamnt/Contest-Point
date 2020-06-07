@@ -56,6 +56,7 @@ import { DialogUnenrollComponent } from './dialog-unenroll/dialog-unenroll.compo
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { EventsComponent } from './events/events.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { TagComponent } from './tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
     DialogUnenrollComponent,
     DialogDeleteComponent,
     EventsComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,

@@ -119,4 +119,24 @@ export class ContestService {
     const options = { headers };
     return this.http.get(baseUrl + 'contest/listLikedContestsUpcoming?userId=' + userId.toString(), options);
   }
+
+  filterByTag(name: string) {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/filterByTag?name=' + name.toString(), options);
+  }
+
+  trendingContests() {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    return this.http.get(baseUrl + 'contest/trendingContests', options);
+  }
 }

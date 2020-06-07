@@ -3,7 +3,7 @@
     <div class="content__wrapper">
       <mat-tab-group>
         <mat-tab label="My creations">
-          <div class="tab">
+          <div *ngIf="contests.length != 0" class="tab">
             <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contests"
               class="contest__card">
               <mat-card-header>
@@ -21,7 +21,7 @@
                 </button>{{contest.likes.length}} likes</div>
               <mat-card-content>
                 <mat-chip-list aria-label="Tags">
-                  <mat-chip *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+                  <mat-chip  [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)" *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
                 </mat-chip-list>
                 <p>
                   {{contest.details}}
@@ -31,9 +31,12 @@
               </mat-card-content>
             </mat-card>
           </div>
+          <div *ngIf="contests.length == 0" class="tab">
+            <span class="nothing">Oops, looks like there's nothing here yet.</span>
+          </div>
         </mat-tab>
         <mat-tab label="Enrolled In">
-          <div class="tab">
+          <div *ngIf="contestsEnrolled.length != 0" class="tab">
             <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contestsEnrolled"
               class="contest__card">
               <mat-card-header>
@@ -51,7 +54,7 @@
                 </button>{{contest.likes.length}} likes</div>
               <mat-card-content>
                 <mat-chip-list aria-label="Tags">
-                  <mat-chip *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+                  <mat-chip  [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)" *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
                 </mat-chip-list>
                 <p>
                   {{contest.details}}
@@ -61,9 +64,12 @@
               </mat-card-content>
             </mat-card>
           </div>
+          <div *ngIf="contestsEnrolled.length == 0" class="tab">
+            <span class="nothing">Oops, looks like there's nothing here yet.</span>
+          </div>
         </mat-tab>
         <mat-tab label="Upcoming">
-          <div class="tab">
+          <div *ngIf="contestsEnrolledUpcoming.length != 0"class="tab">
             <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contestsEnrolledUpcoming"
               class="contest__card">
               <mat-card-header>
@@ -81,7 +87,7 @@
                 </button>{{contest.likes.length}} likes</div>
               <mat-card-content>
                 <mat-chip-list aria-label="Tags">
-                  <mat-chip *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+                  <mat-chip  [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)" *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
                 </mat-chip-list>
                 <p>
                   {{contest.details}}
@@ -90,6 +96,9 @@
                 <p>Takes place: {{contest.startDate}}</p>
               </mat-card-content>
             </mat-card>
+          </div>
+          <div *ngIf="contestsEnrolledUpcoming.length == 0" class="tab">
+            <span class="nothing">Oops, looks like there's nothing here yet.</span>
           </div>
         </mat-tab>
       </mat-tab-group>

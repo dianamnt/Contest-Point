@@ -10,6 +10,7 @@ import { AddContestComponent} from './add-contest/add-contest.component';
 import { ContestComponent } from './contest/contest.component';
 import { EventsComponent } from './events/events.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { TagComponent } from './tag/tag.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'contest', component: ContestComponent, canActivate: [AuthGuard]},
   {path: 'my-contests', component: EventsComponent, canActivate: [AuthGuard]},
   {path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard]},
+  {path: 'tag', component: TagComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'welcome'}
 ];
 
