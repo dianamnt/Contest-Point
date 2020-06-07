@@ -1,55 +1,67 @@
 .dashboard__container {
-    background-image: url(../../assets/images/wallpaper-dashboard.jpg);
-    background-size: cover;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    bottom: 20px;
-    overflow: scroll;
-  }
-  
-  .content__wrapper {
-    height: auto;
-    width: 85%;
-    margin-left: 7.5%;
-    margin-top: 3%;
-    background: rgba(255, 255, 255, 0.767);
-    border-radius: 50px;
-    z-index: 1000;
-  }
-  
-  .contest__card {
-    max-width: 300px;
-    margin: 20px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  
-  .header__avatar {
-    background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
-    color: white;
-    font-family: 'Raleway', sans-serif;
-    font-weight: bolder;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .tab {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-  }
+  background-image: url(../../assets/images/wallpaper-dashboard.jpg);
+  background-size: cover;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  bottom: 20px;
+  overflow: scroll;
+}
 
-  .table {
-      margin-left: 5%;
-      padding-top: 5%;
-      padding-bottom: 5%;
-  }
+.content__wrapper {
+  height: auto;
+  width: 85%;
+  margin-left: 7.5%;
+  margin-top: 3%;
+  background: rgba(255, 255, 255, 0.767);
+  border-radius: 50px;
+  z-index: 1000;
+}
+
+.contest__card {
+  max-width: 300px;
+  margin: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.header__avatar {
+  background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.table {
+  margin-left: 5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.nothing {
+  font-size: xx-large;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
+  padding-top: 15%;
+  padding-bottom: 15%;
+  background: -webkit-linear-gradient(rgba(255, 98, 241, 1), rgba(61, 236, 221, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}

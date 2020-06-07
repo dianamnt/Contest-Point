@@ -3,16 +3,6 @@
   <div class="content__wrapper">
     <mat-tab-group>
       <mat-tab *ngIf="this.contracts.length != 0" label="Contestants for {{contestName}}">
-        <!-- <mat-dialog-content *ngIf="this.contracts.length != 0" class="wrapper">
-          <div class="item" *ngFor="let contract of contracts">
-            <div class="name">{{contract.userFirstName}} {{contract.userLastName}}</div>
-            <div class="email">{{contract.userEmail}}</div>
-            <div class="details">Details: </div>
-            <div class="detail" *ngFor="let detail of contract.details">
-              {{detail.textContent}}
-            </div>
-          </div>
-        </mat-dialog-content> -->
         <table class="table" matSort *ngIf="this.contracts.length != 0" (matSortChange)="sortData($event)">
           <tr>
             <th mat-sort-header="firstName">First Name</th>
@@ -29,8 +19,11 @@
           </tr>
         </table>
       </mat-tab>
-      <mat-tab *ngIf="this.contracts.length == 0" label="Contestants for {{contestName}}">
-        <h2 *ngIf="this.contracts.length == 0" class="font">Nobody enrolled for {{contestName}} yet</h2>
+      <mat-tab class="tab" *ngIf="this.contracts.length == 0 && this.currentUser.userId == this.contestUserId" label="Contestants for {{contestName}}">
+        <h2 *ngIf="this.contracts.length == 0" class="nothing">Nobody enrolled for {{contestName}} yet</h2>
+      </mat-tab>
+      <mat-tab class="tab" *ngIf="this.contracts.length == 0 && this.currentUser.userId != this.contestUserId" label="Contestants for {{contestName}}">
+        <h2 *ngIf="this.contracts.length == 0" class="nothing">Oops seems like you got lost</h2>
       </mat-tab>
     </mat-tab-group>
   </div>

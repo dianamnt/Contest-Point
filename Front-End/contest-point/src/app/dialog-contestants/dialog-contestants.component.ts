@@ -11,7 +11,7 @@ import { Contest } from '../_models/contest';
 import { Requirement } from '../_models/requirement';
 import { Detail } from '../_models/detail';
 import { ParticipationContract } from '../_models/participationcontract';
-import {Sort} from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-dialog-contestants',
@@ -22,9 +22,10 @@ export class DialogContestantsComponent implements OnInit {
   details: Detail[] = [];
   contestId: number;
   currentUser: User;
+  contestUserId: any;
   contestName: string;
   contracts: ContractDetailed[] = [];
-  requirements: Requirement[] =[];
+  requirements: Requirement[] = [];
   sortedData: ContractDetailed[];
 
 
@@ -37,18 +38,21 @@ export class DialogContestantsComponent implements OnInit {
       (data: ContestDetailed) => {
         this.contestName = data.contestName;
         this.requirements = data.requirements;
+        this.contestUserId = data.userId;
+        if (this.currentUser.userId == this.contestUserId) {
+          this.contractService.getContracts(this.currentUser.userId, this.contestId).subscribe(
+            (data: ContractDetailed[]) => {
+              this.contracts = data;
+              this.sortedData = this.contracts.slice();
+            },
+            error => {
+
+            }
+          );
+        }
       },
       error => {
         this.notificationService.error("Requirements not received!");
-      }
-    );
-    this.contractService.getContracts(this.currentUser.userId, this.contestId).subscribe(
-      (data: ContractDetailed[]) => {
-        this.contracts = data;
-        this.sortedData = this.contracts.slice();
-      },
-      error => {
-
       }
     );
   }
@@ -62,21 +66,21 @@ export class DialogContestantsComponent implements OnInit {
 
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
-      if(sort.active == "firstName") {
+      if (sort.active == "firstName") {
         return compare(a.userFirstName, b.userFirstName, isAsc);
       }
-      else if(sort.active == "lastName") {
+      else if (sort.active == "lastName") {
         return compare(a.userLastName, b.userLastName, isAsc);
       }
-      else if(sort.active == "email") {
+      else if (sort.active == "email") {
         return compare(a.userEmail, b.userEmail, isAsc);
       }
       else {
         let i;
-        for(i = 0; i <= this.requirements.length; i++) {
-            if(this.requirements[i].content == sort.active) {
-              return compare(a.details[i].textContent, b.details[i].textContent, isAsc);
-            }
+        for (i = 0; i <= this.requirements.length; i++) {
+          if (this.requirements[i].content == sort.active) {
+            return compare(a.details[i].textContent, b.details[i].textContent, isAsc);
+          }
         }
         return 0;
       }
@@ -87,7 +91,7 @@ export class DialogContestantsComponent implements OnInit {
 
       //   default: return 0;
       // }
-      
+
     });
   }
 
