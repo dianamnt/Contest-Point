@@ -58,6 +58,7 @@ import { EventsComponent } from './events/events.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { TagComponent } from './tag/tag.component';
 import { FilterPipe } from './filter.pipe';
+import { DialogEditProfileComponent } from './dialog-edit-profile/dialog-edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { FilterPipe } from './filter.pipe';
     EventsComponent,
     FavoritesComponent,
     TagComponent,
-    FilterPipe
+    FilterPipe,
+    DialogEditProfileComponent
   ],
   imports: [
     BrowserModule,

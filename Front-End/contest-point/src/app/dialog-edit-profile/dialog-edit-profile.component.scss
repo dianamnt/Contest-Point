@@ -1,0 +1,83 @@
+.register__card {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 20px;
+    margin-bottom: 30%;
+  }
+  
+  .card__picture__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    margin-bottom: 5%;
+    align-self: center;
+  }
+  
+  .card__content__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 350px;
+    margin-bottom: 5%;
+  }
+  
+  .bottom__text {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .bottom__text2 {
+    margin-top: 5%;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 7%;
+  }
+  
+  .register__title {
+    font-family: 'Paytone One', sans-serif;
+    font-size: 40px;
+    margin-bottom: 7%;
+    align-self: flex-start;
+    margin-left: 7%;
+  }
+  
+  mat-form-field {
+    width: 80%;
+    margin-left: 7%;
+  }
+  
+  .cancel__button {
+    align-self: flex-start;
+    margin-top: 2%;
+    margin-left: 2%;
+  }
+  
+  img {
+    width: 330px;
+    height: 380px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+  }
+
+  .info {
+    margin-left: 7%;
+    margin-top: 2%;
+    margin-bottom: 2%; 
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .announcement {
+      margin-right: 2%;
+  }

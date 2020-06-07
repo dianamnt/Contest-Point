@@ -29,7 +29,7 @@
   <span class="fill__space"></span>
   <button matTooltip="Contest Point Account for {{ user.firstName }} {{ user.lastName }}" mat-mini-fab [matMenuTriggerFor]="menu" class="left__side">{{ initials }}</button>
   <mat-menu #menu="matMenu" class="profile__menu">
-    <button class="menu__item" mat-menu-item>Profile</button>
+    <button class="menu__item" (click)="edit()" mat-menu-item>Profile</button>
     <button class="menu__item" (click)="logout()" mat-menu-item>Log out</button>
   </mat-menu>
 </mat-toolbar>

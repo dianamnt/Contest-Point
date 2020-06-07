@@ -1,6 +1,8 @@
 package com.contestpoint.controller;
 
 import com.contestpoint.dto.UserDTO;
+import com.contestpoint.helper.util.JwtResponse;
+import com.contestpoint.helper.util.JwtUtil;
 import com.contestpoint.service.UserService;
 import com.contestpoint.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +32,9 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @GetMapping("/list")
     public ResponseEntity<List<UserDTO>> listUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
@@ -36,9 +47,17 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO) throws Exception {
-        userService.updateUser(userDTO);
-        return ResponseEntity.ok("Change updated");
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) throws Exception {
+        UserDTO u = userService.findById(userDTO.getUserId());
+        u.setFirstName(userDTO.getFirstName());
+        u.setLastName(userDTO.getLastName());
+        u.setEmail(userDTO.getEmail());
+        u.setProfilePicture(userDTO.getProfilePicture());
+        u.setInstitutionName(userDTO.getInstitutionName());
+        if(userDTO.getPassword() != "")
+            u.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+        userService.updateUser(u);
+        return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
     @PostMapping("/findByEmail")

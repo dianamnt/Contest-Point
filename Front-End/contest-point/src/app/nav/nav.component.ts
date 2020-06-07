@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditProfileComponent } from '../dialog-edit-profile/dialog-edit-profile.component';
 
 @Component({
   selector: 'app-nav',
@@ -13,7 +15,7 @@ export class NavComponent implements OnInit {
   user: User = new User();
   initials: String = "";
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.user = this.authService.getCurrentUser();
@@ -39,6 +41,17 @@ export class NavComponent implements OnInit {
 
   goToMyFavorites() {
     this.router.navigate(['/favorites']);
+  }
+
+  edit() {
+    const dialogRef = this.dialog.open(DialogEditProfileComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        localStorage.clear();
+        this.router.navigate(['/welcome']);
+      }
+    });
   }
 
 }

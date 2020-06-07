@@ -1,0 +1,57 @@
+<h2 class="font" mat-dialog-title>Edit profile</h2>
+<mat-dialog-content class="enrollment__form font">
+  <form #registerForm="ngForm" name="registerForm" (ngSubmit)="submit()">
+    <mat-form-field class="email__form">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="First Name" required [(ngModel)]="user.firstName" name="firstName">
+    </mat-form-field>
+    <mat-form-field class="email__form">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Last Name" required [(ngModel)]="user.lastName" name="lastName">
+    </mat-form-field>
+    <mat-form-field class="email__form">
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" required placeholder="Email"
+        [(ngModel)]="user.email" name="email">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="password__form">
+      <mat-label>Old Password</mat-label>
+      <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+        [type]="hide ? 'password' : 'text'"  placeholder="Old Password"
+        name="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="password__form">
+      <mat-label>New Password</mat-label>
+      <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+        [type]="hide ? 'password' : 'text'" placeholder="New Password" [(ngModel)]="user.password"
+        name="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="password__form">
+      <mat-label>Confirm New Password</mat-label>
+      <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+        [type]="hide ? 'password' : 'text'" placeholder="Confirm New Password" name="confirmPassword">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="email__form">
+      <mat-label>Institution Name</mat-label>
+      <input matInput placeholder="Institution Name" [(ngModel)]="user.institutionName" name="institutionName">
+    </mat-form-field>
+    <div class="info"><span class="material-icons announcement">
+        announcement
+        </span> <span>Upon editing profile you will be logged out automatically and will have to login again.</span></div>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>CANCEL</button>
+      <button mat-flat-button class="submit__button"
+        [disabled]="!registerForm.valid || emailFormControl.hasError('email') || emailFormControl.hasError('required') || passwordFormControl.hasError('required')"
+        type="submit" [mat-dialog-close]="true" color="accent" cdkFocusInitial>SAVE</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
