@@ -59,6 +59,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { TagComponent } from './tag/tag.component';
 import { FilterPipe } from './filter.pipe';
 import { DialogEditProfileComponent } from './dialog-edit-profile/dialog-edit-profile.component';
+import { AgmCoreModule } from '@agm/core'
+import {key} from '../../../../../key'
 
 @NgModule({
   declarations: [
@@ -123,7 +125,10 @@ import { DialogEditProfileComponent } from './dialog-edit-profile/dialog-edit-pr
     ReactiveFormsModule,
     DragDropModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: key
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

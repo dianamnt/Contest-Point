@@ -17,6 +17,8 @@ import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
 import { ParticipationContract } from '../_models/participationcontract';
 import { Like } from '../_models/like';
 import { Aux } from '../_models/auxiliary';
+import { HttpClient } from '@angular/common/http';
+import {key} from '../../../../../../key'
 
 @Component({
   selector: 'app-contest',
@@ -24,6 +26,8 @@ import { Aux } from '../_models/auxiliary';
   styleUrls: ['./contest.component.scss']
 })
 export class ContestComponent implements OnInit {
+  latitude = 51.678418;
+  longitude = 7.809007;
   contest: ContestDetailed;
   contestId: number;
   currentUser: User;
@@ -31,7 +35,7 @@ export class ContestComponent implements OnInit {
   currentLike: Like = new Like();
   noLikes: number;
 
-  constructor(private notificationService: NotificationService, private contractService: ContractService, private router: Router, private contestService: ContestService, private authService: AuthService, public dialog: MatDialog, private likeService: LikeService) { }
+  constructor(private notificationService: NotificationService, private contractService: ContractService, private router: Router, private contestService: ContestService, private authService: AuthService, public dialog: MatDialog, private likeService: LikeService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.contestId = parseInt(localStorage.getItem('currentContest'));
@@ -40,6 +44,17 @@ export class ContestComponent implements OnInit {
       (data: ContestDetailed) => {
         this.contest = data;
         this.noLikes = this.contest.likes.length;
+        if(this.contest.locations[0].city != "")
+        {
+          let adress = this.contest.locations[0].buildingNumber + "," + this.contest.locations[0].streetName + "," + this.contest.locations[0].city + "," + this.contest.locations[0].country;
+          this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adress + '&key=' + key).subscribe(
+            (data: any) => {
+              this.longitude = data.results[0].geometry.location.lng;
+              this.latitude = data.results[0].geometry.location.lat;
+            }
+          );
+          (<HTMLElement>document.querySelector('#map')).style.display = 'inline';
+        }
         if (this.currentUser.userId == this.contest.userId) {
           (<HTMLElement>document.querySelector('#contestantsButton')).style.display = 'inline';
           this.userDisplayed = " you";
@@ -127,10 +142,6 @@ export class ContestComponent implements OnInit {
   }
 
   openDialogContestants() {
-    // const dialogRef = this.dialog.open(DialogContestantsComponent);
-
-    // dialogRef.afterClosed().subscribe(result => {
-    // });
     this.router.navigate(['/contestants']);
   }
 
