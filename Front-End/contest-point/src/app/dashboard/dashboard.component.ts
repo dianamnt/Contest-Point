@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   unbounded = false;
   contests: ContestDetailed[] = [];
   contestsTrending: ContestDetailed[] = [];
+  searchValue: any;
 
   constructor(private notificationService: NotificationService, private contestService: ContestService, private router: Router) { }
 

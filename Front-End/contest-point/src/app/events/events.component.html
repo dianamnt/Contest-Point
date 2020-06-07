@@ -1,107 +1,127 @@
 <div class="dashboard__container">
-    <app-nav></app-nav>
-    <div class="content__wrapper">
-      <mat-tab-group>
-        <mat-tab label="My creations">
-          <div *ngIf="contests.length != 0" class="tab">
-            <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contests"
-              class="contest__card">
-              <mat-card-header>
-                <div mat-card-avatar class="header__avatar">
-                  <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
-                <mat-card-title>{{contest.contestName}}</mat-card-title>
-                <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
-              <div class="likes__wrapper">
-                <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
-                  <span class="material-icons">
-                    favorite_border
-                  </span>
-                </button>{{contest.likes.length}} likes</div>
-              <mat-card-content>
-                <mat-chip-list aria-label="Tags">
-                  <mat-chip  [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)" *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
-                </mat-chip-list>
-                <p>
-                  {{contest.details}}
-                </p>
-                <p>Enrollment ends: {{contest.enrollmentDue}}</p>
-                <p>Takes place: {{contest.startDate}}</p>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <div *ngIf="contests.length == 0" class="tab">
-            <span class="nothing">Oops, looks like there's nothing here yet.</span>
-          </div>
-        </mat-tab>
-        <mat-tab label="Enrolled In">
-          <div *ngIf="contestsEnrolled.length != 0" class="tab">
-            <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contestsEnrolled"
-              class="contest__card">
-              <mat-card-header>
-                <div mat-card-avatar class="header__avatar">
-                  <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
-                <mat-card-title>{{contest.contestName}}</mat-card-title>
-                <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
-              <div class="likes__wrapper">
-                <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
-                  <span class="material-icons">
-                    favorite_border
-                  </span>
-                </button>{{contest.likes.length}} likes</div>
-              <mat-card-content>
-                <mat-chip-list aria-label="Tags">
-                  <mat-chip  [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)" *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
-                </mat-chip-list>
-                <p>
-                  {{contest.details}}
-                </p>
-                <p>Enrollment ends: {{contest.enrollmentDue}}</p>
-                <p>Takes place: {{contest.startDate}}</p>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <div *ngIf="contestsEnrolled.length == 0" class="tab">
-            <span class="nothing">Oops, looks like there's nothing here yet.</span>
-          </div>
-        </mat-tab>
-        <mat-tab label="Upcoming">
-          <div *ngIf="contestsEnrolledUpcoming.length != 0"class="tab">
-            <mat-card matRipple (click)="goToCurrentContest(contest.contestId)" *ngFor="let contest of contestsEnrolledUpcoming"
-              class="contest__card">
-              <mat-card-header>
-                <div mat-card-avatar class="header__avatar">
-                  <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
-                <mat-card-title>{{contest.contestName}}</mat-card-title>
-                <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
-              <div class="likes__wrapper">
-                <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
-                  <span class="material-icons">
-                    favorite_border
-                  </span>
-                </button>{{contest.likes.length}} likes</div>
-              <mat-card-content>
-                <mat-chip-list aria-label="Tags">
-                  <mat-chip  [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)" *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
-                </mat-chip-list>
-                <p>
-                  {{contest.details}}
-                </p>
-                <p>Enrollment ends: {{contest.enrollmentDue}}</p>
-                <p>Takes place: {{contest.startDate}}</p>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <div *ngIf="contestsEnrolledUpcoming.length == 0" class="tab">
-            <span class="nothing">Oops, looks like there's nothing here yet.</span>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
+  <app-nav></app-nav>
+  <div class="content__wrapper">
+    <mat-tab-group>
+      <mat-tab label="My creations">
+        <mat-form-field class="search__input">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" name="search" ngDefaultControl placeholder="Ex. Contest.."
+            [(ngModel)]="searchValue">
+        </mat-form-field>
+        <div *ngIf="contests.length != 0" class="tab">
+          <mat-card matRipple (click)="goToCurrentContest(contest.contestId)"
+            *ngFor="let contest of contests | filter :'contestName' : 'userFirstName' : 'userLastName': searchValue"
+            class="contest__card">
+            <mat-card-header>
+              <div mat-card-avatar class="header__avatar">
+                <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
+              <mat-card-title>{{contest.contestName}}</mat-card-title>
+              <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
+            <div class="likes__wrapper">
+              <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
+                <span class="material-icons">
+                  favorite_border
+                </span>
+              </button>{{contest.likes.length}} likes</div>
+            <mat-card-content>
+              <mat-chip-list aria-label="Tags">
+                <mat-chip [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)"
+                  *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+              </mat-chip-list>
+              <p>
+                {{contest.details}}
+              </p>
+              <p>Enrollment ends: {{contest.enrollmentDue}}</p>
+              <p>Takes place: {{contest.startDate}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div *ngIf="contests.length == 0" class="tab">
+          <span class="nothing">Oops, looks like there's nothing here yet.</span>
+        </div>
+      </mat-tab>
+      <mat-tab label="Enrolled In">
+        <mat-form-field class="search__input">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" name="search" ngDefaultControl placeholder="Ex. Contest.."
+            [(ngModel)]="searchValue">
+        </mat-form-field>
+        <div *ngIf="contestsEnrolled.length != 0" class="tab">
+          <mat-card matRipple (click)="goToCurrentContest(contest.contestId)"
+            *ngFor="let contest of contestsEnrolled | filter :'contestName' : 'userFirstName' : 'userLastName': searchValue"
+            class="contest__card">
+            <mat-card-header>
+              <div mat-card-avatar class="header__avatar">
+                <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
+              <mat-card-title>{{contest.contestName}}</mat-card-title>
+              <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
+            <div class="likes__wrapper">
+              <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
+                <span class="material-icons">
+                  favorite_border
+                </span>
+              </button>{{contest.likes.length}} likes</div>
+            <mat-card-content>
+              <mat-chip-list aria-label="Tags">
+                <mat-chip [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)"
+                  *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+              </mat-chip-list>
+              <p>
+                {{contest.details}}
+              </p>
+              <p>Enrollment ends: {{contest.enrollmentDue}}</p>
+              <p>Takes place: {{contest.startDate}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div *ngIf="contestsEnrolled.length == 0" class="tab">
+          <span class="nothing">Oops, looks like there's nothing here yet.</span>
+        </div>
+      </mat-tab>
+      <mat-tab label="Upcoming">
+        <mat-form-field class="search__input">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" name="search" ngDefaultControl placeholder="Ex. Contest.."
+            [(ngModel)]="searchValue">
+        </mat-form-field>
+        <div *ngIf="contestsEnrolledUpcoming.length != 0" class="tab">
+          <mat-card matRipple (click)="goToCurrentContest(contest.contestId)"
+            *ngFor="let contest of contestsEnrolledUpcoming | filter :'contestName' : 'userFirstName' : 'userLastName': searchValue"
+            class="contest__card">
+            <mat-card-header>
+              <div mat-card-avatar class="header__avatar">
+                <span>{{contest.userFirstName[0]}}{{contest.userLastName[0]}}</span></div>
+              <mat-card-title>{{contest.contestName}}</mat-card-title>
+              <mat-card-subtitle>by {{contest.userFirstName}} {{contest.userLastName}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src={{contest.coverPicture}} alt="Cover Photo">
+            <div class="likes__wrapper">
+              <button mat-icon-button class="like__button" color="warn" aria-label="Like button">
+                <span class="material-icons">
+                  favorite_border
+                </span>
+              </button>{{contest.likes.length}} likes</div>
+            <mat-card-content>
+              <mat-chip-list aria-label="Tags">
+                <mat-chip [(ngModel)]="contest.tags" name="chip" ngDefaultControl (click)="data(tag.tagName)"
+                  *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+              </mat-chip-list>
+              <p>
+                {{contest.details}}
+              </p>
+              <p>Enrollment ends: {{contest.enrollmentDue}}</p>
+              <p>Takes place: {{contest.startDate}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div *ngIf="contestsEnrolledUpcoming.length == 0" class="tab">
+          <span class="nothing">Oops, looks like there's nothing here yet.</span>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
-  
+</div>

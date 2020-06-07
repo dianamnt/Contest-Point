@@ -57,6 +57,7 @@ import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { EventsComponent } from './events/events.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { TagComponent } from './tag/tag.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { TagComponent } from './tag/tag.component';
     DialogDeleteComponent,
     EventsComponent,
     FavoritesComponent,
-    TagComponent
+    TagComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

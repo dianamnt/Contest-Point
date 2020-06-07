@@ -17,6 +17,7 @@ export class TagComponent implements OnInit {
   contests: ContestDetailed[] = [];
   tagName: string;
   contestsForYou: ContestDetailed[] = [];
+  searchValue: any;
 
   constructor(private notificationService: NotificationService, private contestService: ContestService, private router: Router) { }
 

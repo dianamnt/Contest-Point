@@ -19,6 +19,7 @@ export class EventsComponent implements OnInit {
   contests: ContestDetailed[] = [];
   contestsEnrolled: ContestDetailed[] = [];
   contestsEnrolledUpcoming: ContestDetailed[] = [];
+  searchValue: any;
 
   constructor(private notificationService: NotificationService, private contestService: ContestService, private router: Router, private authService: AuthService) { }
 
