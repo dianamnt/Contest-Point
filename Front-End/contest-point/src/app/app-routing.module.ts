@@ -11,6 +11,7 @@ import { ContestComponent } from './contest/contest.component';
 import { EventsComponent } from './events/events.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { TagComponent } from './tag/tag.component';
+import { DialogContestantsComponent } from './dialog-contestants/dialog-contestants.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'my-contests', component: EventsComponent, canActivate: [AuthGuard]},
   {path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard]},
   {path: 'tag', component: TagComponent, canActivate: [AuthGuard]},
+  {path: 'contestants', component: DialogContestantsComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'welcome'}
 ];
 

@@ -127,10 +127,11 @@ export class ContestComponent implements OnInit {
   }
 
   openDialogContestants() {
-    const dialogRef = this.dialog.open(DialogContestantsComponent);
+    // const dialogRef = this.dialog.open(DialogContestantsComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    // });
+    this.router.navigate(['/contestants']);
   }
 
   openDialogDelete() {

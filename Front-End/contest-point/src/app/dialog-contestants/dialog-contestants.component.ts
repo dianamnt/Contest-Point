@@ -11,6 +11,7 @@ import { Contest } from '../_models/contest';
 import { Requirement } from '../_models/requirement';
 import { Detail } from '../_models/detail';
 import { ParticipationContract } from '../_models/participationcontract';
+import {Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-dialog-contestants',
@@ -23,6 +24,9 @@ export class DialogContestantsComponent implements OnInit {
   currentUser: User;
   contestName: string;
   contracts: ContractDetailed[] = [];
+  requirements: Requirement[] =[];
+  sortedData: ContractDetailed[];
+
 
   constructor(private notificationService: NotificationService, private contractService: ContractService, private router: Router, private contestService: ContestService, private authService: AuthService) { }
 
@@ -32,6 +36,7 @@ export class DialogContestantsComponent implements OnInit {
     this.contestService.findByIdDetailed(this.contestId).subscribe(
       (data: ContestDetailed) => {
         this.contestName = data.contestName;
+        this.requirements = data.requirements;
       },
       error => {
         this.notificationService.error("Requirements not received!");
@@ -40,7 +45,7 @@ export class DialogContestantsComponent implements OnInit {
     this.contractService.getContracts(this.currentUser.userId, this.contestId).subscribe(
       (data: ContractDetailed[]) => {
         this.contracts = data;
-        console.log(this.contracts);
+        this.sortedData = this.contracts.slice();
       },
       error => {
 
@@ -48,4 +53,46 @@ export class DialogContestantsComponent implements OnInit {
     );
   }
 
+  sortData(sort: Sort) {
+    const data = this.contracts.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      if(sort.active == "firstName") {
+        return compare(a.userFirstName, b.userFirstName, isAsc);
+      }
+      else if(sort.active == "lastName") {
+        return compare(a.userLastName, b.userLastName, isAsc);
+      }
+      else if(sort.active == "email") {
+        return compare(a.userEmail, b.userEmail, isAsc);
+      }
+      else {
+        let i;
+        for(i = 0; i <= this.requirements.length; i++) {
+            if(this.requirements[i].content == sort.active) {
+              return compare(a.details[i].textContent, b.details[i].textContent, isAsc);
+            }
+        }
+        return 0;
+      }
+      // switch (sort.active) {
+      //   case 'firstName': return compare(a.userFirstName, b.userFirstName, isAsc);
+      //   case 'lastName': return compare(a.userLastName, b.userLastName, isAsc);
+      //   case 'email': return compare(a.userEmail, b.userEmail, isAsc);
+
+      //   default: return 0;
+      // }
+      
+    });
+  }
+
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

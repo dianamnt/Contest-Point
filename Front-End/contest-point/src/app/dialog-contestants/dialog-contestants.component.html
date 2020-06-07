@@ -1,15 +1,37 @@
-<h2 *ngIf="this.contracts.length != 0" class="font" mat-dialog-title>Contestants for {{contestName}}</h2>
-<h2 *ngIf="this.contracts.length == 0" class="font" mat-dialog-title>Nobody enrolled for {{contestName}} yet</h2>
-<mat-dialog-content *ngIf="this.contracts.length != 0" class="wrapper">
-  <div class="item" *ngFor="let contract of contracts">
-    <div class="name">{{contract.userFirstName}} {{contract.userLastName}}</div>
-    <div class="email">{{contract.userEmail}}</div>
-    <div class="details">Details: </div>
-    <div class="detail" *ngFor="let detail of contract.details">
-        {{detail.textContent}}
-    </div>
+<div class="dashboard__container">
+  <app-nav></app-nav>
+  <div class="content__wrapper">
+    <mat-tab-group>
+      <mat-tab *ngIf="this.contracts.length != 0" label="Contestants for {{contestName}}">
+        <!-- <mat-dialog-content *ngIf="this.contracts.length != 0" class="wrapper">
+          <div class="item" *ngFor="let contract of contracts">
+            <div class="name">{{contract.userFirstName}} {{contract.userLastName}}</div>
+            <div class="email">{{contract.userEmail}}</div>
+            <div class="details">Details: </div>
+            <div class="detail" *ngFor="let detail of contract.details">
+              {{detail.textContent}}
+            </div>
+          </div>
+        </mat-dialog-content> -->
+        <table class="table" matSort *ngIf="this.contracts.length != 0" (matSortChange)="sortData($event)">
+          <tr>
+            <th mat-sort-header="firstName">First Name</th>
+            <th mat-sort-header="lastName">Last Name</th>
+            <th mat-sort-header="email">Email</th>
+            <th mat-sort-header="{{req.content}}" *ngFor="let req of requirements">{{req.content}}</th>
+          </tr>
+        
+          <tr *ngFor="let contract of sortedData">
+            <td>{{contract.userFirstName}}</td>
+            <td>{{contract.userLastName}}</td>
+            <td>{{contract.userEmail}}</td>
+            <td *ngFor="let detail of contract.details">{{detail.textContent}}</td>
+          </tr>
+        </table>
+      </mat-tab>
+      <mat-tab *ngIf="this.contracts.length == 0" label="Contestants for {{contestName}}">
+        <h2 *ngIf="this.contracts.length == 0" class="font">Nobody enrolled for {{contestName}} yet</h2>
+      </mat-tab>
+    </mat-tab-group>
   </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-</mat-dialog-actions>
+</div>
