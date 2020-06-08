@@ -32,7 +32,7 @@ public class ContractController {
 
     @GetMapping("/listDetailed")
     public ResponseEntity<List<ContractDetailedDTO>> listParticipationContractsDetailed(@RequestParam Long userId, @RequestParam Long contestId) {
-        if(contestService.findById(contestId).getUserId() == userId)
+        if(contestService.findById(contestId).getUserId().equals(userId))
             return new ResponseEntity<>(participationContractService.findAllDetailedContracts(contestId), HttpStatus.OK);
         List<ContractDetailedDTO> nullList = new ArrayList<>();
         return new ResponseEntity<>(nullList, HttpStatus.NOT_FOUND);

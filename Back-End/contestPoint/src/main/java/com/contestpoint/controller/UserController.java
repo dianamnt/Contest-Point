@@ -54,7 +54,7 @@ public class UserController {
         u.setEmail(userDTO.getEmail());
         u.setProfilePicture(userDTO.getProfilePicture());
         u.setInstitutionName(userDTO.getInstitutionName());
-        if(userDTO.getPassword() != "")
+        if(!userDTO.getPassword().equals(""))
             u.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         userService.updateUser(u);
         return new ResponseEntity<>(u, HttpStatus.OK);

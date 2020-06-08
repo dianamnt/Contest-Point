@@ -60,7 +60,8 @@ import { TagComponent } from './tag/tag.component';
 import { FilterPipe } from './filter.pipe';
 import { DialogEditProfileComponent } from './dialog-edit-profile/dialog-edit-profile.component';
 import { AgmCoreModule } from '@agm/core'
-import {key} from '../../../../../key'
+import {key} from '../../../../../key';
+import { DialogEditContestComponent } from './dialog-edit-contest/dialog-edit-contest.component'
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import {key} from '../../../../../key'
     FavoritesComponent,
     TagComponent,
     FilterPipe,
-    DialogEditProfileComponent
+    DialogEditProfileComponent,
+    DialogEditContestComponent
   ],
   imports: [
     BrowserModule,

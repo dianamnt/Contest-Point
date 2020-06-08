@@ -28,6 +28,7 @@ export class EventsComponent implements OnInit {
     this.contestService.getMyContests(this.currentUser.userId).subscribe(
       (data: ContestDetailed[]) => {
         this.contests = data;
+        console.log(data);
       },
       error => {
         this.notificationService.error("Data could not be retrieved!");
@@ -35,6 +36,7 @@ export class EventsComponent implements OnInit {
     this.contestService.getContestsEnrolled(this.currentUser.userId).subscribe(
       (data: ContestDetailed[]) => {
         this.contestsEnrolled = data;
+        console.log(data);
       },
       error => {
         this.notificationService.error("Data could not be retrieved!");

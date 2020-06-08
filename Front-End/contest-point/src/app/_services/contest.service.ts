@@ -60,6 +60,17 @@ export class ContestService {
     return this.http.post(baseUrl + 'contest/findByIdDetailed',body, options);
   }
 
+  updateContestDetailed(contest: ContestDetailed) {
+    this.token = localStorage.getItem('token').toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+    const options = { headers };
+    const body = JSON.stringify(contest);
+    return this.http.post(baseUrl + 'contest/updateContestDetailed', body, options);
+  }
+
   getContests() {
     this.token = localStorage.getItem('token').toString();
     const headers = new HttpHeaders({

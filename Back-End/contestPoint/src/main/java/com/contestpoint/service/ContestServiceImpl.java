@@ -124,7 +124,7 @@ public class ContestServiceImpl implements ContestService{
         contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
         for(LocationContestDTO lc : locationContestService.findAllLocationContests()) {
-            if(lc.getContestId() == c.getContestId()) {
+            if(lc.getContestId().equals(c.getContestId())) {
                 locations.add(locationService.findById(lc.getLocationId()));
             }
         }
@@ -132,7 +132,7 @@ public class ContestServiceImpl implements ContestService{
         contestDetailedDTO.setLocations(locations);
 
         for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-            if(tc.getContestId() == c.getContestId()) {
+            if(tc.getContestId().equals(c.getContestId())) {
                 tags.add(tagService.findById(tc.getTagId()));
             }
         }
@@ -140,14 +140,14 @@ public class ContestServiceImpl implements ContestService{
         contestDetailedDTO.setTags(tags);
 
         for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-            if(l.getContestId() == c.getContestId())
+            if(l.getContestId().equals(c.getContestId()))
                 likes.add(l);
         }
 
         contestDetailedDTO.setLikes(likes);
 
         for(RequirementDTO r: requirementService.findAllRequirements()) {
-            if(r.getContestId() == c.getContestId())
+            if(r.getContestId().equals(c.getContestId()))
                 requirements.add(r);
         }
 
@@ -189,7 +189,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -197,7 +197,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -215,7 +215,7 @@ public class ContestServiceImpl implements ContestService{
         List<ContestDTO> contests = new ArrayList<>();
 
         for (Contest contest : ContestRepository.findAll()) {
-            if(contest.getUser().getUserId() == id) {
+            if(contest.getUser().getUserId().equals(id)) {
                 ContestDTO ContestDTO = ContestMapper.toDTO(contest);
                 contests.add(ContestDTO);
             }
@@ -244,7 +244,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -252,7 +252,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -270,7 +270,7 @@ public class ContestServiceImpl implements ContestService{
         List<Long> contestIds = new ArrayList<>();
 
         for(ParticipationContractDTO pc: participationContractService.findAllParticipationContracts()) {
-            if(pc.getUserId() == id) {
+            if(pc.getUserId().equals(id)) {
                 contestIds.add(pc.getContestId());
             }
         }
@@ -307,7 +307,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -315,7 +315,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -333,7 +333,7 @@ public class ContestServiceImpl implements ContestService{
         List<Long> contestIds = new ArrayList<>();
 
         for(ParticipationContractDTO pc: participationContractService.findAllParticipationContracts()) {
-            if(pc.getUserId() == id) {
+            if(pc.getUserId().equals(id)) {
                 contestIds.add(pc.getContestId());
             }
         }
@@ -372,7 +372,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -380,7 +380,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -398,7 +398,7 @@ public class ContestServiceImpl implements ContestService{
         List<Long> contestIds = new ArrayList<>();
 
         for(UserLikeDTO like: userLikeService.findAllUserLikes()) {
-            if(like.getUserId() == id) {
+            if(like.getUserId().equals(id)) {
                 contestIds.add(like.getContestId());
             }
         }
@@ -435,7 +435,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -443,7 +443,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -461,7 +461,7 @@ public class ContestServiceImpl implements ContestService{
         List<Long> contestIds = new ArrayList<>();
 
         for(UserLikeDTO like: userLikeService.findAllUserLikes()) {
-            if(like.getUserId() == id) {
+            if(like.getUserId().equals(id)) {
                 contestIds.add(like.getContestId());
             }
         }
@@ -500,7 +500,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -508,7 +508,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -528,7 +528,7 @@ public class ContestServiceImpl implements ContestService{
         List<Long> contestIds = new ArrayList<>();
 
         for(TagContestDTO t: tagContestService.findAllTagContests()) {
-            if(tagDTO.getTagId() == t.getTagId()) {
+            if(tagDTO.getTagId().equals(t.getTagId())) {
                 contestIds.add(t.getContestId());
             }
         }
@@ -565,7 +565,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -573,7 +573,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 
@@ -633,7 +633,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setUserInstitution(userService.findById(c.getUserId()).getInstitutionName());
 
             for(TagContestDTO tc: tagContestService.findAllTagContests()) {
-                if(tc.getContestId() == c.getContestId()) {
+                if(tc.getContestId().equals(c.getContestId())) {
                     tags.add(tagService.findById(tc.getTagId()));
                 }
             }
@@ -641,7 +641,7 @@ public class ContestServiceImpl implements ContestService{
             contestDetailedDTO.setTags(tags);
 
             for(UserLikeDTO l: userLikeService.findAllUserLikes()) {
-                if(l.getContestId() == c.getContestId())
+                if(l.getContestId().equals(c.getContestId()))
                     likes.add(l);
             }
 

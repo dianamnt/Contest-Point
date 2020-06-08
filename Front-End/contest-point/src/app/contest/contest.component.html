@@ -10,9 +10,16 @@
           {{contest.userLastName}}</span>
         <span *ngIf="userDisplayed != &#34;&#34;" class="contest__creator">by {{userDisplayed}}</span>
       </span>
-      <button style="display: none;" id="delete" (click)="openDialogDelete()" class="delete__button" mat-icon-button color="warn">
-        <span class="material-icons">delete_outline</span>
-      </button>
+      <span class="action__buttons">
+        <button style="display: none;" id="edit" (click)="openDialogEdit()" class="edit__button" mat-icon-button
+          color="primary">
+          <span class="material-icons">edit</span>
+        </button>
+        <button style="display: none;" id="delete" (click)="openDialogDelete()" class="delete__button" mat-icon-button
+          color="warn">
+          <span class="material-icons">delete_outline</span>
+        </button>
+      </span>
     </div>
     <p *ngIf="contest.startDate != contest.endDate" class="period">{{contest.startDate}} -- {{contest.endDate}}</p>
     <p *ngIf="contest.startDate == contest.endDate" class="period">{{contest.startDate}}</p>

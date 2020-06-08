@@ -19,6 +19,7 @@ import { Like } from '../_models/like';
 import { Aux } from '../_models/auxiliary';
 import { HttpClient } from '@angular/common/http';
 import {key} from '../../../../../../key'
+import { DialogEditContestComponent } from '../dialog-edit-contest/dialog-edit-contest.component'
 
 @Component({
   selector: 'app-contest',
@@ -59,6 +60,7 @@ export class ContestComponent implements OnInit {
           (<HTMLElement>document.querySelector('#contestantsButton')).style.display = 'inline';
           this.userDisplayed = " you";
           (<HTMLElement>document.querySelector('#delete')).style.display = 'inline';
+          (<HTMLElement>document.querySelector('#edit')).style.display = 'inline';
         }
         else {
           this.contractService.isEnrolled(this.currentUser.userId, this.contest.contestId).subscribe(
@@ -149,6 +151,16 @@ export class ContestComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDeleteComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openDialogEdit() {
+    const dialogRef = this.dialog.open(DialogEditContestComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true) {
+        window.location.reload();
+      }
     });
   }
 

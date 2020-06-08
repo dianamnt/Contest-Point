@@ -106,3 +106,10 @@
   height: 400px;
   width: 100%;
 }
+
+.action__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-right: 5%;
+}

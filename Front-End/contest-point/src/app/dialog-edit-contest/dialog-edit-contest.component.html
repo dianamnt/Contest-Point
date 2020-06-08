@@ -1,0 +1,197 @@
+<h2 class="font" mat-dialog-title>Edit</h2>
+<mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab label="Edit Details">
+      <form #contestForm="ngForm" name="contestForm" class="first__form">
+        <div class="form__header">Edit the details about your contest</div>
+        <div class="details">
+          <mat-form-field class="form__field">
+            <mat-label>Name</mat-label>
+            <textarea matInput placeholder="Name" [(ngModel)]="contest.contestName" name="contestName" required></textarea>
+          </mat-form-field>
+          <mat-form-field class="form__field">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Give a description" [(ngModel)]="contest.details" name="details" required></textarea>
+          </mat-form-field>
+          <mat-form-field class="form__field">
+            <mat-label>Partners</mat-label>
+            <textarea matInput placeholder="Ex. Partner1, Partner2, ..." [(ngModel)]="contest.partners" name="partners"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form__header">Edit when the contest takes place</div>
+        <div class="details">
+          <mat-form-field class="form__field__date">
+            <mat-label>Choose a start date</mat-label>
+            <input matInput [matDatepicker]="pickerStart" [(ngModel)]="contest.startDate" name="startDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Choose an end date</mat-label>
+            <input matInput [matDatepicker]="pickerEnd" [(ngModel)]="contest.endDate" name="endDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form__header">Edit the enrollment period</div>
+        <div class="details">
+          <mat-form-field class="form__field__date">
+            <mat-label>Enroll starts</mat-label>
+            <input matInput [matDatepicker]="pickerEnStart" [(ngModel)]="contest.enrollmentStart" name="enrollmentStart">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnStart></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Enroll ends</mat-label>
+            <input matInput [matDatepicker]="pickerEnEnd" [(ngModel)]="contest.enrollmentDue" name="enrollmentDue">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Cover Picture">
+      <div class="form__header">Choose a cover picture for your contest.</div>
+      <div class="cover__wrapper">
+        <mat-button-toggle-group [(ngModel)]="image" class="cover__wrapper">
+          <mat-button-toggle value="../../assets/images/img1.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img1.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img2.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img2.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img3.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img3.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img4.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img4.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img5.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img5.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img6.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img6.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img7.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img7.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img8.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img8.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img9.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img9.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img10.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img10.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img11.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img11.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+          <mat-button-toggle value="../../assets/images/img12.jpg" class="image__card">
+            <img class="cover__image" src="../../assets/images/img12.jpg" alt="Photo of a Shiba Inu">
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </mat-tab>
+    <mat-tab label="Location">
+      <div class="form__header">Edit location</div>
+      <mat-radio-group [(ngModel)]="labelPosition">
+        <mat-radio-button class="location__button" (click)="onlineClicked()" value="after">Online</mat-radio-button>
+        <mat-radio-button class="location__button" (click)="onsiteClicked()" value="before">Onsite</mat-radio-button>
+      </mat-radio-group>
+      <form>
+        <div class="details" id="online__div">
+          <mat-form-field class="location__form__field">
+            <mat-label>Web Resource</mat-label>
+            <textarea matInput placeholder="Ex. https://..." [(ngModel)]="location.onlineResource" name="onlineResource" required></textarea>
+          </mat-form-field>
+        </div>
+        <div class="details" style="display: none;" id="location__div">
+          <div class="form__header">Fill in local adress</div>
+          <mat-form-field class="form__field__date">
+            <mat-label>Street Name</mat-label>
+            <input matInput placeholder="Ex. John Doe St." [(ngModel)]="location.streetName" name="streetName" required>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Street Number</mat-label>
+            <input matInput placeholder="Ex. 4A" [(ngModel)]="location.streetNumber" name="streetNumber" required>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Building Number</mat-label>
+            <input matInput placeholder="Ex. 128" [(ngModel)]="location.buildingNumber" name="buildingNumber" required>
+          </mat-form-field>
+        </div>
+        <div class="details" style="display: none;" id="location__div2">
+          <div class="form__header">Fill in regional adress</div>
+          <mat-form-field class="form__field__date">
+            <mat-label>City</mat-label>
+            <input matInput placeholder="Ex. New York" [(ngModel)]="location.city" name="city" required>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Region</mat-label>
+            <input matInput placeholder="Ex. NY" [(ngModel)]="location.region" name="region" required>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Country</mat-label>
+            <input matInput placeholder="Ex. USA" [(ngModel)]="location.country" name="country" required>
+          </mat-form-field>
+          <mat-form-field class="form__field__date">
+            <mat-label>Zip Code</mat-label>
+            <input matInput placeholder="Ex. 400325" [(ngModel)]="location.postalCode" name="postalCode" required>
+          </mat-form-field>
+        </div>
+        <div class="details" style="display: none;" id="location__div3">
+          <div class="form__header">Details</div>
+          <mat-form-field class="location__form__field">
+            <mat-label>Details</mat-label>
+            <textarea matInput placeholder="..." [(ngModel)]="location.details" name="details"></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Tags">
+      <div class="form__header">Edit tags.</div>
+      <mat-form-field class="chip__list">
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip *ngFor="let tag of stringTags" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="New tags..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{tag}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-tab>
+    <mat-tab label="Requirements">
+      <div class="form__header">Edit the requirements for enrolling.</div>
+      <form [formGroup]="thirdFormGroup" style="margin-bottom: 1%;">
+        <mat-form-field class="chip__list">
+          <mat-label>Requirement</mat-label>
+          <textarea matInput placeholder="Ex. Input personal identification number..."
+            formControlName="requirement"></textarea>
+        </mat-form-field>
+        <button (click)="addRequirement()" style="margin-left: 1%;" mat-button>ADD</button>
+      </form>
+      <div id="reqList" cdkDropList class="requirement__list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="requirement__box" *ngFor="let requirement of stringRequirements" cdkDrag>
+          {{requirement}}
+          <span (click)="close(requirement)" class="material-icons close">
+            close
+          </span>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>CANCEL</button>
+  <button mat-flat-button (click)="submit()" [mat-dialog-close]="true" color="accent" cdkFocusInitial>SAVE</button>
+</mat-dialog-actions>

@@ -80,7 +80,7 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
         for(ParticipationContractDTO pc: participationContractDTOList) {
             ContractDetailedDTO contractDetailedDTO = new ContractDetailedDTO();
             List<DetailDTO> details = new ArrayList<>();
-            if(pc.getContestId() == contestId)
+            if(pc.getContestId().equals(contestId))
             {
                 contractDetailedDTO.setPcId(pc.getPcId());
                 contractDetailedDTO.setUserId(pc.getUserId());
@@ -89,7 +89,7 @@ public class ParticipationContractServiceImpl implements ParticipationContractSe
                 contractDetailedDTO.setUserLastName(userService.findById(pc.getUserId()).getLastName());
                 contractDetailedDTO.setUserEmail(userService.findById(pc.getUserId()).getEmail());
                 for(DetailDTO d: detailService.findAllDetails()) {
-                    if(d.getPcId() == pc.getPcId()) {
+                    if(d.getPcId().equals(pc.getPcId())) {
                         details.add(d);
                     }
                 }

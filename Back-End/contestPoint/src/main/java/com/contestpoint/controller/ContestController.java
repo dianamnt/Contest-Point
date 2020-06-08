@@ -33,6 +33,9 @@ public class ContestController {
     @Autowired
     private RequirementService requirementService;
 
+    @Autowired
+    private ParticipationContractService participationContractService;
+
     @GetMapping("/list")
     public ResponseEntity<List<ContestDTO>> listContests() {
         return ResponseEntity.ok(contestService.findAllContests());
@@ -140,6 +143,72 @@ public class ContestController {
         }
 
         return new ResponseEntity<>(newcontestDTO, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/updateContestDetailed")
+    public ResponseEntity<?> updateContestDetailed(@RequestBody ContestDetailedDTO contestDetailedDTO) throws Exception {
+        ContestDTO contestDTO = new ContestDTO();
+        contestDTO.setUserId(contestDetailedDTO.getUserId());
+        contestDTO.setContestId(contestDetailedDTO.getContestId());
+        contestDTO.setContestName(contestDetailedDTO.getContestName());
+        contestDTO.setDetails(contestDetailedDTO.getDetails());
+        contestDTO.setCoverPicture(contestDetailedDTO.getCoverPicture());
+        contestDTO.setPartners(contestDetailedDTO.getPartners());
+        contestDTO.setStartDate(contestDetailedDTO.getStartDate());
+        contestDTO.setEndDate(contestDetailedDTO.getEndDate());
+        contestDTO.setEnrollmentStart(contestDetailedDTO.getEnrollmentStart());
+        contestDTO.setEnrollmentDue(contestDetailedDTO.getEnrollmentDue());
+
+        contestService.updateContest(contestDTO);
+
+        if(contestDetailedDTO.getLocations() != null) {
+            LocationDTO location = contestDetailedDTO.getLocations().get(0);
+            locationService.updateLocation(location);
+        }
+
+        if(contestDetailedDTO.getTags() != null) {
+            for(TagContestDTO t: tagContestService.findAllTagContests()) {
+                if(t.getContestId().equals(contestDetailedDTO.getContestId())) {
+                    tagContestService.deleteTagContest(t.getTcId());
+                }
+            }
+
+            TagContestDTO tagContestDTO = new TagContestDTO();
+            tagContestDTO.setContestId(contestDTO.getContestId());
+            for(TagDTO t: contestDetailedDTO.getTags())
+            {
+                if(tagService.findByName(t.getTagName()) == null) {
+                    TagDTO newt = tagService.createTag(t);
+                    tagContestDTO.setTagId(newt.getTagId());
+                }
+                tagContestDTO.setTagId(tagService.findByName(t.getTagName()).getTagId());
+                tagContestService.createTagContest(tagContestDTO);
+            }
+        }
+
+        int counter = 0;
+
+        for(ParticipationContractDTO pc: participationContractService.findAllParticipationContracts()) {
+            if(pc.getContestId().equals(contestDetailedDTO.getContestId())) {
+                counter = counter + 1;
+            }
+        }
+
+        if(contestDetailedDTO.getRequirements() != null && counter == 0) {
+            for(RequirementDTO r: requirementService.findAllRequirements()) {
+                if(r.getContestId().equals(contestDetailedDTO.getContestId())) {
+                    requirementService.deleteRequirement(r.getRequirementId());
+                }
+            }
+            for(RequirementDTO r: contestDetailedDTO.getRequirements())
+            {
+                r.setContestId(contestDTO.getContestId());
+                RequirementDTO newr = requirementService.createRequirement(r);
+            }
+        }
+
+        return new ResponseEntity<>(contestDTO, HttpStatus.OK);
 
     }
 
