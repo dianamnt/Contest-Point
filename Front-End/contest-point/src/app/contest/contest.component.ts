@@ -18,7 +18,7 @@ import { ParticipationContract } from '../_models/participationcontract';
 import { Like } from '../_models/like';
 import { Aux } from '../_models/auxiliary';
 import { HttpClient } from '@angular/common/http';
-import {key} from '../../../../../../key'
+import { key } from '../../../../../../key'
 import { DialogEditContestComponent } from '../dialog-edit-contest/dialog-edit-contest.component'
 
 @Component({
@@ -162,6 +162,11 @@ export class ContestComponent implements OnInit {
         window.location.reload();
       }
     });
+  }
+
+  data(smth: any) {
+    localStorage.setItem('currentTag', smth.toString());
+    this.router.navigate(['/tag']);
   }
 
 }

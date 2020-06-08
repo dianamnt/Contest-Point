@@ -4,7 +4,6 @@
         arrow_back
       </span></button>
     <img src="../../assets/images/cardImg1.jpg" alt="LoginCardImage" class="card__picture">
-    <span class="bottom__text">Create an account</span>
   </div>
   <div class="card__content__wrapper">
     <form #loginForm="ngForm" (ngSubmit)="login()">
@@ -29,7 +28,6 @@
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <span class="bottom__text">Forgot password?</span>
       <button mat-button class="login__button" [disabled]="!loginForm.valid || emailFormControl.hasError('email') || emailFormControl.hasError('required') || passwordFormControl.hasError('required')" type="submit">LOGIN</button>
     </form>
   </div>

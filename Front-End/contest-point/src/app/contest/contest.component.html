@@ -26,13 +26,18 @@
     <p class="contest__details">{{contest.details}}</p>
     <div class="contest__details__enrollment"><span class="enrollment__period">Enrollment period:</span> from <span
         class="date">{{contest.enrollmentStart}}</span> to <span class="date">{{contest.enrollmentDue}}</span></div>
+    <div class="contest__details__enrollment">
+      <span >Partners: </span>
+      {{contest.partners}}
+    </div>
     <div class="contest__details">
       <mat-chip-list aria-label="Tags">
-        <mat-chip *ngFor="let tag of contest.tags">{{tag.tagName}}</mat-chip>
+        <mat-chip *ngFor="let tag of contest.tags" (click)="data(tag.tagName)">{{tag.tagName}}</mat-chip>
       </mat-chip-list>
     </div>
-    <div *ngIf="contest.locations[0].onlineResource == &#34;&#34;" class="location">{{contest.locations[0].city}},
-      {{contest.locations[0].country}}</div>
+    <div *ngIf="contest.locations[0].onlineResource == &#34;&#34;" class="location">{{contest.locations[0].streetName}}
+      {{contest.locations[0].streetNumber}} {{contest.locations[0].buildingNumber}} {{contest.locations[0].city}},
+      {{contest.locations[0].country}}, {{contest.locations[0].postalCode}}, {{contest.locations[0].details}}</div>
     <div *ngIf="contest.locations[0].onlineResource != &#34;&#34;" class="location">
       {{contest.locations[0].onlineResource}}</div>
     <div class="contest__buttons">
