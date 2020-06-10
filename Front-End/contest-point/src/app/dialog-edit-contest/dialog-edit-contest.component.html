@@ -1,7 +1,7 @@
 <h2 class="font" mat-dialog-title>Edit</h2>
 <mat-dialog-content>
   <mat-tab-group>
-    <mat-tab label="Edit Details">
+    <mat-tab label="Details">
       <form #contestForm="ngForm" name="contestForm" class="first__form">
         <div class="form__header">Edit the details about your contest</div>
         <div class="details">
@@ -177,12 +177,16 @@
           <textarea matInput placeholder="Ex. Input personal identification number..."
             formControlName="requirement"></textarea>
         </mat-form-field>
+        <mat-checkbox style="margin-left: 2%;" formControlName="checked">Requires files</mat-checkbox>
         <button (click)="addRequirement()" style="margin-left: 1%;" mat-button>ADD</button>
       </form>
       <div id="reqList" cdkDropList class="requirement__list"
         (cdkDropListDropped)="drop($event)">
         <div class="requirement__box" *ngFor="let requirement of stringRequirements" cdkDrag>
-          {{requirement}}
+          <span *ngIf="requirement.reqImage == true">{{requirement.content}} <span class="material-icons">
+            attach_file
+            </span></span>
+          <span *ngIf="requirement.reqImage != true">{{requirement.content}}</span>
           <span (click)="close(requirement)" class="material-icons close">
             close
           </span>

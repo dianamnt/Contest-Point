@@ -27,7 +27,7 @@
     <div class="contest__details__enrollment"><span class="enrollment__period">Enrollment period:</span> from <span
         class="date">{{contest.enrollmentStart}}</span> to <span class="date">{{contest.enrollmentDue}}</span></div>
     <div class="contest__details__enrollment">
-      <span >Partners: </span>
+      <span *ngIf="contest.partners != &#34;&#34;">Partners: </span>
       {{contest.partners}}
     </div>
     <div class="contest__details">

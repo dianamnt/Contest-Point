@@ -18,6 +18,11 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 
+export class AuxRequirement {
+  content: string;
+  reqImage: boolean;
+}
+
 @Component({
   selector: 'app-add-contest',
   templateUrl: './add-contest.component.html',
@@ -48,7 +53,7 @@ export class AddContestComponent implements OnInit {
   stringTags: string[] = [];
   allTags: string[] = [];
 
-  stringRequirements = [];
+  stringRequirements: AuxRequirement[] = [];
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -82,6 +87,7 @@ export class AddContestComponent implements OnInit {
     });
     this.thirdFormGroup = this._formBuilder.group({
       requirement: [''],
+      checked: [''],
     });
     this.tagService.getTags().subscribe((data: Tag[]) => {
       var i;
@@ -172,12 +178,15 @@ export class AddContestComponent implements OnInit {
   }
 
   addRequirement() {
-    this.stringRequirements.push(this.thirdFormGroup.value.requirement);
+    var req: AuxRequirement = new AuxRequirement();
+    req.content = this.thirdFormGroup.value.requirement;
+    req.reqImage = this.thirdFormGroup.value.checked;
+    this.stringRequirements.push(JSON.parse(JSON.stringify(req)));
     (<HTMLElement>document.querySelector('#reqList')).style.display = 'block';
     this.thirdFormGroup.reset();
   }
 
-  close(requirement: string) {
+  close(requirement: AuxRequirement) {
     const index = this.stringRequirements.indexOf(requirement);
     if (index > -1) {
       this.stringRequirements.splice(index, 1);
@@ -233,13 +242,19 @@ export class AddContestComponent implements OnInit {
     var i;
     var counter = 1;
     for (i = 0; i < this.stringRequirements.length; i++) {
-      req.content = this.stringRequirements[i];
+      req.content = this.stringRequirements[i].content;
       req.isMandatory = 1;
-      req.reqImage = 0;
+      if( this.stringRequirements[i].reqImage == true) {
+        req.reqImage = 1;
+      }
+      if( this.stringRequirements[i].reqImage == false) {
+        req.reqImage = 0;
+      }
       req.orderNo = counter;
       this.requirements.push(JSON.parse(JSON.stringify(req)));
       counter = counter + 1;
     }
+   
     this.contest.requirements = this.requirements;
 
     this.contestService.addContestDetailed(this.contest).subscribe(

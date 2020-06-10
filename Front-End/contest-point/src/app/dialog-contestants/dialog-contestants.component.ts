@@ -84,15 +84,13 @@ export class DialogContestantsComponent implements OnInit {
         }
         return 0;
       }
-      // switch (sort.active) {
-      //   case 'firstName': return compare(a.userFirstName, b.userFirstName, isAsc);
-      //   case 'lastName': return compare(a.userLastName, b.userLastName, isAsc);
-      //   case 'email': return compare(a.userEmail, b.userEmail, isAsc);
-
-      //   default: return 0;
-      // }
 
     });
+  }
+
+  download(fileName: string) {
+    let url = "http://localhost:8080/files/files/" + fileName;
+    window.open(url);
   }
 
 }

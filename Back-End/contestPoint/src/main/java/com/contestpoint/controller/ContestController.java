@@ -214,7 +214,7 @@ public class ContestController {
 
     @PostMapping("/deleteContest")
     public ResponseEntity<?> deleteContest(@RequestBody AuxDTO auxDTO) {
-        if(contestService.findById(auxDTO.getSecondSensitiveDataParam()).getUserId() == auxDTO.getFirstSensitiveDataParam()) {
+        if(contestService.findById(auxDTO.getSecondSensitiveDataParam()).getUserId().equals(auxDTO.getFirstSensitiveDataParam())) {
             contestService.deleteContest(auxDTO.getSecondSensitiveDataParam());
             return new ResponseEntity<>(auxDTO, HttpStatus.OK);
         }

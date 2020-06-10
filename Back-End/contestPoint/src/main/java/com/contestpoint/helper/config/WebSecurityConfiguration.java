@@ -65,6 +65,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
+                .antMatchers("/files/files/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(corsFilter(), SessionManagementFilter.class)

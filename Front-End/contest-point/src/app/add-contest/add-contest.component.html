@@ -2,7 +2,7 @@
   <app-nav></app-nav>
   <div class="content__wrapper">
     <mat-horizontal-stepper class="stepper" labelPosition="bottom" linear #stepper>
-      <mat-step [stepControl]="firstFormGroup">
+      <mat-step [stepControl]="firstFormGroup" >
         <form class="first__form" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Contest Details</ng-template>
           <div class="form__header">Fill in the details about your contest</div>
@@ -103,7 +103,7 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </mat-step>
-      <mat-step >
+      <mat-step>
         <div class="form__header">Where is your contest held?</div>
         <mat-radio-group [(ngModel)]="labelPosition">
           <mat-radio-button class="location__button" (click)="onlineClicked()" value="after">Online</mat-radio-button>
@@ -198,11 +198,16 @@
             <textarea matInput placeholder="Ex. Input personal identification number..."
               formControlName="requirement"></textarea>
           </mat-form-field>
+          <mat-checkbox style="margin-left: 2%;" formControlName="checked">Requires files</mat-checkbox>
           <button (click)="addRequirement()" style="margin-left: 1%;" mat-button>ADD</button>
         </form>
-        <div style="display: none;" id="reqList" cdkDropList class="requirement__list" (cdkDropListDropped)="drop($event)">
+        <div style="display: none;" id="reqList" cdkDropList class="requirement__list"
+          (cdkDropListDropped)="drop($event)">
           <div class="requirement__box" *ngFor="let requirement of stringRequirements" cdkDrag>
-            {{requirement}}
+            <span *ngIf="requirement.reqImage == true">{{requirement.content}} <span class="material-icons">
+              attach_file
+              </span></span>
+            <span *ngIf="requirement.reqImage != true">{{requirement.content}}</span>
             <span (click)="close(requirement)" class="material-icons close">
               close
             </span>

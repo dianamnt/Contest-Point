@@ -1,13 +1,23 @@
 <h2 class="font" mat-dialog-title>Enroll to {{contestName}}</h2>
 <mat-dialog-content class="enrollment__form font">
-  <mat-form-field class="input" *ngFor="let detail of details; let i = index; trackBy:trackByIdx">
-    <mat-label>{{requirements[i].content}}</mat-label>
-    <input matInput [(ngModel)]="details[i].textContent">
-  </mat-form-field>
-  <mat-checkbox class="checkbox" color="primary" [(ngModel)]="checked">I agree with the terms and conditions imposed by the
+  <div *ngFor="let detail of details; let i = index; trackBy:trackByIdx">
+    <div *ngIf="requirements[i].reqImage == 0">
+      <mat-form-field class="input">
+        <mat-label>{{requirements[i].content}}</mat-label>
+        <input matInput [(ngModel)]="details[i].textContent">
+      </mat-form-field>
+    </div>
+    <div class="file__input" *ngIf="requirements[i].reqImage == 1">
+      <div style="margin-bottom: 5%; color: grey">{{requirements[i].content}}</div>
+      <input class="file__input__button" type="file" (change)="selectFile($event, i)" />
+    </div>
+  </div>
+  <mat-checkbox class="checkbox" color="primary" [(ngModel)]="checked">I agree with the terms and conditions imposed by
+    the
     Contest Point online platform</mat-checkbox>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button [disabled]="!checked" (click)="submit()" [mat-dialog-close]="true" color="primary" cdkFocusInitial>ENROLL</button>
+  <button mat-flat-button [disabled]="!checked" (click)="submit()" [mat-dialog-close]="true" color="primary"
+    cdkFocusInitial>ENROLL</button>
 </mat-dialog-actions>

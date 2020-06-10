@@ -17,6 +17,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
+import { AuxRequirement } from '../add-contest/add-contest.component';
 
 @Component({
   selector: 'app-dialog-edit-contest',
@@ -48,7 +49,7 @@ export class DialogEditContestComponent implements OnInit {
   stringTags: string[] = [];
   allTags: string[] = [];
 
-  stringRequirements = [];
+  stringRequirements: AuxRequirement[] = [];
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -72,7 +73,15 @@ export class DialogEditContestComponent implements OnInit {
         }
         for(i = 0; i< data.requirements.length; i++)
         {
-          this.stringRequirements.push(data.requirements[i].content);
+          var req: AuxRequirement = new AuxRequirement();
+          req.content = data.requirements[i].content;
+          if(data.requirements[i].reqImage == 0) {
+            req.reqImage = false;
+          }
+          if(data.requirements[i].reqImage == 1) {
+            req.reqImage = true;
+          }
+          this.stringRequirements.push(JSON.parse(JSON.stringify(req)));
         }
       },
       error => {
@@ -81,6 +90,7 @@ export class DialogEditContestComponent implements OnInit {
     );
     this.thirdFormGroup = this._formBuilder.group({
       requirement: [''],
+      checked: [''],
     });
     this.tagService.getTags().subscribe((data: Tag[]) => {
       var i;
@@ -171,12 +181,15 @@ export class DialogEditContestComponent implements OnInit {
   }
 
   addRequirement() {
-    this.stringRequirements.push(this.thirdFormGroup.value.requirement);
+    var req: AuxRequirement = new AuxRequirement();
+    req.content = this.thirdFormGroup.value.requirement;
+    req.reqImage = this.thirdFormGroup.value.checked;
+    this.stringRequirements.push(JSON.parse(JSON.stringify(req)));
     (<HTMLElement>document.querySelector('#reqList')).style.display = 'block';
     this.thirdFormGroup.reset();
   }
 
-  close(requirement: string) {
+  close(requirement: AuxRequirement) {
     const index = this.stringRequirements.indexOf(requirement);
     if (index > -1) {
       this.stringRequirements.splice(index, 1);
@@ -211,9 +224,14 @@ export class DialogEditContestComponent implements OnInit {
     var i;
     var counter = 1;
     for (i = 0; i < this.stringRequirements.length; i++) {
-      req.content = this.stringRequirements[i];
+      req.content = this.stringRequirements[i].content;
       req.isMandatory = 1;
-      req.reqImage = 0;
+      if( this.stringRequirements[i].reqImage == true) {
+        req.reqImage = 1;
+      }
+      if( this.stringRequirements[i].reqImage == false) {
+        req.reqImage = 0;
+      }
       req.orderNo = counter;
       this.requirements.push(JSON.parse(JSON.stringify(req)));
       counter = counter + 1;

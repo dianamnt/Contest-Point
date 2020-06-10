@@ -10,19 +10,28 @@
             <th mat-sort-header="email">Email</th>
             <th mat-sort-header="{{req.content}}" *ngFor="let req of requirements">{{req.content}}</th>
           </tr>
-        
+
           <tr *ngFor="let contract of sortedData">
             <td>{{contract.userFirstName}}</td>
             <td>{{contract.userLastName}}</td>
             <td>{{contract.userEmail}}</td>
-            <td *ngFor="let detail of contract.details">{{detail.textContent}}</td>
+            <td *ngFor="let detail of contract.details">
+              <span *ngIf="detail.textContent != null">{{detail.textContent}}</span>
+              <span (click)="download(detail.imageContent)" style="text-decoration: underline;"
+                *ngIf="detail.imageContent != null"><span class="center"><span>{{detail.imageContent}}</span><span
+                    class="material-icons">
+                    get_app
+                  </span></span></span>
+            </td>
           </tr>
         </table>
       </mat-tab>
-      <mat-tab class="tab" *ngIf="this.contracts.length == 0 && this.currentUser.userId == this.contestUserId" label="Contestants for {{contestName}}">
+      <mat-tab class="tab" *ngIf="this.contracts.length == 0 && this.currentUser.userId == this.contestUserId"
+        label="Contestants for {{contestName}}">
         <h2 *ngIf="this.contracts.length == 0" class="nothing">Nobody enrolled for {{contestName}} yet</h2>
       </mat-tab>
-      <mat-tab class="tab" *ngIf="this.contracts.length == 0 && this.currentUser.userId != this.contestUserId" label="Contestants for {{contestName}}">
+      <mat-tab class="tab" *ngIf="this.contracts.length == 0 && this.currentUser.userId != this.contestUserId"
+        label="Contestants for {{contestName}}">
         <h2 *ngIf="this.contracts.length == 0" class="nothing">Oops seems like you got lost</h2>
       </mat-tab>
     </mat-tab-group>
