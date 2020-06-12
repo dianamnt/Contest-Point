@@ -129,6 +129,7 @@ export class ContestComponent implements OnInit {
         (<HTMLElement>document.querySelector('#enrollButton')).style.display = 'none';
         (<HTMLElement>document.querySelector('#unenrollButton')).style.display = 'inline';
       }
+      window.location.reload();
     });
   }
 

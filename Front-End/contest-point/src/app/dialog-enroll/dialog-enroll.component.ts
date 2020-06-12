@@ -27,6 +27,7 @@ export class DialogEnrollComponent implements OnInit {
   contract: ContractDetailed = new ContractDetailed();
   selectedFiles: FileList;
   fileList: File[] = [];
+  valid: boolean = false;
 
   constructor(private notificationService: NotificationService, private contractService: ContractService, private router: Router, private contestService: ContestService, private authService: AuthService) { }
 
@@ -73,10 +74,11 @@ export class DialogEnrollComponent implements OnInit {
     this.contractService.enroll(this.contract).subscribe(
       (data: ParticipationContract) => {
         this.notificationService.success(this.currentUser.firstName + " " + this.currentUser.lastName + " enrolled to " + this.contestName);
-
+        this.valid = true;
       },
       error => {
         this.notificationService.error("Enrollment did not work!");
+        
       });
     let i;
     for (i = 0; i < this.fileList.length; i++) {
@@ -86,6 +88,7 @@ export class DialogEnrollComponent implements OnInit {
         },
         error => {
           this.notificationService.error("Files were not uploaded. We suggest you unenroll and enroll again.");
+          
         }
       )
     }

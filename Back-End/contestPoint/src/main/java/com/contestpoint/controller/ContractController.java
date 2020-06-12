@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -40,18 +41,24 @@ public class ContractController {
 
     @PostMapping("/enroll")
     public ResponseEntity<?> savecontractDetailed(@RequestBody ContractDetailedDTO contractDetailedDTO) throws Exception {
-        ParticipationContractDTO participationContractDTO = new ParticipationContractDTO();
-        participationContractDTO.setContestId(contractDetailedDTO.getContestId());
-        participationContractDTO.setUserId(contractDetailedDTO.getUserId());
-        ParticipationContractDTO newParticipationContractDTO = participationContractService.createParticipationContract(participationContractDTO);
-        if(contractDetailedDTO.getDetails() != null)
-        {
-            for(DetailDTO d: contractDetailedDTO.getDetails()) {
-                d.setPcId(newParticipationContractDTO.getPcId());
-                detailService.createDetail(d);
+        ContestDTO contest = contestService.findById(contractDetailedDTO.getContestId());
+        Date utilDateStart = new Date(contest.getEnrollmentStart().getTime());
+        Date utilDateEnd = new Date(contest.getEnrollmentDue().getTime());
+        Date currDate = new Date();
+        if(utilDateEnd.compareTo(currDate) > 0 && utilDateStart.compareTo(currDate) < 0) {
+            ParticipationContractDTO participationContractDTO = new ParticipationContractDTO();
+            participationContractDTO.setContestId(contractDetailedDTO.getContestId());
+            participationContractDTO.setUserId(contractDetailedDTO.getUserId());
+            ParticipationContractDTO newParticipationContractDTO = participationContractService.createParticipationContract(participationContractDTO);
+            if (contractDetailedDTO.getDetails() != null) {
+                for (DetailDTO d : contractDetailedDTO.getDetails()) {
+                    d.setPcId(newParticipationContractDTO.getPcId());
+                    detailService.createDetail(d);
+                }
             }
+            return new ResponseEntity<>(newParticipationContractDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<>(newParticipationContractDTO, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/saveContract")
